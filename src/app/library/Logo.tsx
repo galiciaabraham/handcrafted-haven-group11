@@ -5,7 +5,7 @@ import { oswald } from '../ui/fonts';
 export default function HandCraftLogo () {
     return (
     <>
-        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse"/>
+        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse w-full"/>
         <Image 
             src="/handcraftlogo.webp"
             width={512}
@@ -14,7 +14,7 @@ export default function HandCraftLogo () {
             alt="HandCraft Haven Logo"
         />
         <span 
-            className={`${oswald.className} antialiased text-2xl`}
+            className={`${oswald.className} antialiased text-2xl text-main-2`}
         >HandCrafted Haven</span>
     </>
     )
