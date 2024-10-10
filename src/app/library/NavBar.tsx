@@ -1,7 +1,7 @@
 'use client';
 
 import HandCraftLogo from "./Logo";
-import  ToggleNav  from "../lib/toggle-nav";
+import  ToggleNav  from "../utilities/toggle-nav";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
