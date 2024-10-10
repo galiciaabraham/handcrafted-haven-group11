@@ -10,8 +10,8 @@ export default function NavBar (){
   const [isOpen, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const handleHamburguer = () => {
-    setOpen(!isOpen);
+  const handleHamburguer = () => { //This function changes the state isOpen when the ToggleNav which is a button is clicked.
+    setOpen(!isOpen);  //In line 30, a ternary operator toggles the hidden and flex class atributes based on the state isOpen
   }
   return (
     <>

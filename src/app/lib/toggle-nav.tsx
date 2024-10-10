@@ -1,10 +1,10 @@
 'use client';
-
+//This component returns a hamburguer button that will change the state "isOpen" when clicked.
 import React from "react";
 
 export default function ToggleNav( { isOpen  , onToggle } : {
   isOpen : boolean;
-  onToggle : any
+  onToggle : () => void; //The reason why it's defined as it is it's because it's expecting a function that doesn't return anything. You'll use this with client components that you don't expect to do anything else besides modifying the state.
 }) {
 
   return (
