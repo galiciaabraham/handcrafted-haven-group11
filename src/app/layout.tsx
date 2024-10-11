@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { montserrat } from "./ui/fonts";
-import NavBar from "./library/NavBar";
-
+import NavBar from "./ui/layout/NavBar";
+import Footer from "./ui/layout/footer";
 
 export const metadata: Metadata = {
   title: {
@@ -34,7 +34,9 @@ export default function RootLayout({
       </header>
         
         {children}
+        <Footer />
       </body>
+      
     </html>
   );
 }

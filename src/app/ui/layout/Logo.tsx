@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { oswald } from '../ui/fonts';
+import { oswald } from '../fonts';
 
 export default function HandCraftLogo () {
     return (
