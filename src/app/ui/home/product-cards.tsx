@@ -1,4 +1,3 @@
-import { montserrat } from '@/app/ui/fonts';
 import Image from 'next/image';
 
 
@@ -15,7 +14,7 @@ return (
                     width={128}
                     height={128}
                 />
-                <p className="hidden text-sm text-gray-500 sm:block">
+                <p className=" text-body-text hidden text-sm text-gray-500 sm:block">
                     Product #1
                 </p>
             </div>
@@ -27,7 +26,7 @@ return (
                     width={128}
                     height={128}
                 />
-                <p className="hidden text-sm text-gray-500 sm:block">
+                <p className="text-body-text hidden text-sm text-gray-500 sm:block">
                     Product #2
                 </p>
             </div>

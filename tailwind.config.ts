@@ -18,7 +18,7 @@ const config: Config = {
     },
     fontFamily: {
       "titles": ['Oswald', 'ui-serif'],
-      "text": ['Montserrat', 'ui-sans-serif'],
+      "body-text": ['Montserrat', 'ui-sans-serif'],
     },
     extend: {
     },
