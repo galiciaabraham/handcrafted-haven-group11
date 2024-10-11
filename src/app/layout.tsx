@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { oswald, montserrat } from "./ui/fonts";
+import Footer from "./ui/footer";
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +22,9 @@ export default function RootLayout({
         className={`${montserrat.className} antialiased`}
       >
         {children}
+        <Footer />
       </body>
+      
     </html>
   );
 }
