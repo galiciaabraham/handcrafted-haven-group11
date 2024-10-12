@@ -38,7 +38,7 @@ export default function NavBar (){
           </li>
 
           <li className= {`${pathname === "/shop" ? "active text-main-2 bg-main-1 hover:bg-main-2 hover:text-secondary-2 md:bg-main-2 md:text-secondary-2 md:hover:bg-main-1 md:hover:text-main-2"  : " md:text-main-2 bg-main-2 text-secondary-2 hover:bg-main-1 hover:text-main-2 md:bg-main-1 md:shadow-none md:hover:bg-main-2 md:hover:text-secondary-2 "} p-2 m-2 rounded-md shadow-md `}>
-            <Link href="#" className={`font-text block py-2 px-3 rounded md:p-0 `} aria-current="page" >Shop</Link>
+            <Link href="/shop" className={`font-text block py-2 px-3 rounded md:p-0 `} aria-current="page" >Shop</Link>
           </li>
 
           <li className= {`${pathname === "/events" ? "active text-main-2 bg-main-1 hover:bg-main-2 hover:text-secondary-2 md:bg-main-2 md:text-secondary-2 md:hover:bg-main-1 md:hover:text-main-2"  : "md:text-main-2 bg-main-2 text-secondary-2 hover:bg-main-1 hover:text-main-2 md:bg-main-1 md:shadow-none md:hover:bg-main-2 md:hover:text-secondary-2 "} p-2 m-2 rounded-md shadow-md `}>
