@@ -1,8 +1,9 @@
+import ProductList from "@/app/ui/shop/product-list";
 
 export default async function Page() {
     return (
         <main>
-            <p>hello world</p>
+            <ProductList />
         </main>
     )
 }
