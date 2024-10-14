@@ -1,35 +1,15 @@
 import Image from 'next/image';
+import ProductPreview from '../shop/product-list';
+import { fetchAllProducts } from "@/app/utilities/data";
 
 
 export default async function NewProductWrapper() {
 // const { newProduct } = await fetchNewProducts(); <= array?
+const newProducts = await fetchAllProducts();
 return (
     <>
-        <div className='flex items-center'>
-            <div className="mx-auto">
-                <Image
-                    src="/products/3949b801bbd9.jpg"
-                    alt={`product picture`}
-                    
-                    width={128}
-                    height={128}
-                />
-                <p className=" text-body-text hidden text-sm text-gray-500 sm:block">
-                    Product #1
-                </p>
-            </div>
-
-            <div className="mx-auto">
-                <Image
-                    src="/products/3949b801bbd9.jpg"
-                    alt={`product picture`}
-                    width={128}
-                    height={128}
-                />
-                <p className="text-body-text hidden text-sm text-gray-500 sm:block">
-                    Product #2
-                </p>
-            </div>
+        <div className='flex flex-col md:flex-row items-center justify-center gap-4'>
+            < ProductPreview products={newProducts} />
         </div>
     </>
 );
