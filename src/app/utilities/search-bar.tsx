@@ -1,10 +1,33 @@
 'use client';
+import { useState } from "react";
+
 
 export default function SearchBar() {
+    const [isOrder, setOrder] = useState("ABC");
+
+    const handleOrder = () => {
+        switch (isOrder) {
+            case "ABC":
+              setOrder("Rates");
+              break;
+            case "Rates":
+              setOrder("Price");
+              break;
+            case "Price":
+              setOrder("ABC");
+              break;
+            default:
+              setOrder("ABC");
+      }
+    }
+    
+
     return (
       <>
         <div className="flex items-center justify-center max-w-lg mx-auto m-4">
-          <button id="drop-down" type="button" className="text-main-2 bg-secondary-2 hover:bg-main-1 rounded-md rounded-r-none text-sm px-5 py-4"> Order By: </button>
+          <button onClick={handleOrder} id="drop-down" type="button" className="text-main-2 bg-secondary-2 hover:bg-main-1 rounded-md rounded-r-none text-sm px-5 py-4"> Order By: 
+            <span> {isOrder}</span>
+          </button>
           <form className="flex-grow">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3">
