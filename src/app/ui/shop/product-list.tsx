@@ -3,7 +3,7 @@ import { oswald } from "../fonts";
 import { formatCurrency } from "@/app/utilities/formating";
 
 
-export default async function ProductPreview ({
+export default function ProductPreview ({
     products, 
 } : {
     products: Array<Product>;

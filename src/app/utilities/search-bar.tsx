@@ -1,5 +1,5 @@
 
-export default function SearchBar({isOrder, onOrderChange }: {
+export default function SearchBar({isOrder, onOrderChange,}: {
     isOrder: string,
     onOrderChange: () => void;
 }) {
