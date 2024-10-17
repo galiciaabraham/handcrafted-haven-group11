@@ -2,7 +2,7 @@
 
 import ProductPreview from "@/app/ui/shop/product-list";
 import SearchBar from "@/app/utilities/search-bar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense} from "react";
 import { useSearchParams } from "next/navigation";
 
 
@@ -45,10 +45,12 @@ export default function ProductsPage({ products}: {
 
     return (
         <main>
+        <Suspense>
         <SearchBar isOrder={isOrder} onOrderChange={handleOrderChange} />
         <div className="flex flex-col md:grid md:grid-cols-4 gap-4 m-4 p-4">
             <ProductPreview products={sortedProducts} />
         </div>
+        </Suspense>
         </main>
     );
     }
