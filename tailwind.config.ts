@@ -14,11 +14,13 @@ const config: Config = {
       "secondary-1": "#a5672f",
       "secondary-2": "#48666a",
       "accent-1": "#c1cdbf",
-      "accent-2": "#818a3a"
+      "accent-2": "#818a3a",
+      "black": "#000000"
     },
     fontFamily: {
       "titles": ['Oswald', 'ui-serif'],
       "body-text": ['Montserrat', 'ui-sans-serif'],
+      "display" :['Oswald', 'ui-serif']
     },
     extend: {
     },
