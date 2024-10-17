@@ -38,3 +38,35 @@ export async function fetchAllProducts () {
         throw new Error('Failed to fetch the products');
     }
 }
+
+export async function fetchAllPosts () {
+  try {
+    // const data = await sql`This will eventually be an SQL query to get all the posts`;
+    // const posts = data; //Later this data should be formated.
+    const posts = [
+      {
+        post_id: 1,
+        user_id: 100,
+        title: "First Post",
+        content: "This is the content of the first post.",
+        created_at: "2024-10-11T12:00:00Z",
+        updated_at: "2024-10-11T12:00:00Z",
+        likes_count: 23
+      },
+      {
+        post_id: 2,
+        user_id: 101,
+        title: "Second Post",
+        content: "This is the content of the second post.",
+        created_at: "2024-10-12T14:30:00Z",
+        updated_at: "2024-10-12T14:30:00Z",
+        likes_count: 17
+      },
+      ];
+      return posts;
+} catch (err) {
+    console.error('Error fetching data', err);
+    throw new Error('Failed to fetch the posts');
+}
+
+}
