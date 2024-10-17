@@ -1,8 +1,26 @@
+'use client';
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-export default function SearchBar({isOrder, onOrderChange,}: {
+
+export default function SearchBar({isOrder, onOrderChange}: {
     isOrder: string,
-    onOrderChange: () => void;
+    onOrderChange: () => void,
 }) {
+
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const { replace } = useRouter();
+
+    function handleSearch(term: string) {
+        console.log(term)
+        const params = new URLSearchParams(searchParams);
+        if (term) {
+            params.set('query', term);
+        } else {
+            params.delete('query');
+        }
+        replace(`${pathname}?${params.toString()}`)
+    }
     
 
     return (
@@ -31,10 +49,14 @@ export default function SearchBar({isOrder, onOrderChange,}: {
                 </svg>
               </div>
               <input
+                onChange={(e) => {
+                    handleSearch(e.target.value);
+                }}
                 type="search"
                 id="search-bar"
                 className="block w-full p-4 pl-10 text-sm text-secondary-2 rounded-md rounded-l-none bg-main-2 font-body-text"
                 placeholder="Search Products"
+                defaultValue={searchParams.get('query')?.toString()}
               />
               <button type="submit" className="text-main-2 absolute right-2.5 bottom-2.5 bg-secondary-2 hover:bg-main-1 rounded-md text-sm px-4 py-2"> Search </button>
             </div>
