@@ -6,8 +6,8 @@ export default function PostPage({posts}:
     }
 ) {
     return (
-        <>
+        <main className="grid grid-cols-1 md:grid-cols-2">
         <PostPreview posts={posts} />
-        </>
+        </main>
     )
 }
