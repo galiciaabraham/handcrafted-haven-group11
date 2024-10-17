@@ -1,11 +1,13 @@
+import PostPreview from "@/app/ui/feed/post-list";
+
 export default function PostPage({posts}:
     {
-        posts: Array<Post>;
+        posts: Post[];
     }
 ) {
     return (
         <>
-        Hello World       
+        <PostPreview posts={posts} />
         </>
     )
 }
