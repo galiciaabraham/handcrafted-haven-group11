@@ -29,15 +29,15 @@ export default function ProductsPage({ products}: {
 
             if (query) {
                 filteredProducts = products.filter(
-                    product => product.title.toLowerCase().includes(query.toLowerCase())
+                    product => product.product_title.toLowerCase().includes(query.toLowerCase())
                 );
             }
 
             const sortedProducts = [...filteredProducts].sort((a, b) => {
-                if (isOrder === "ABC") return a.title.localeCompare(b.title);
-                if (isOrder === "Price") return a.price - b.price;
+                if (isOrder === "ABC") return a.product_title.localeCompare(b.product_title);
+                if (isOrder === "Price") return a.product_price - b.product_price;
                 //if (isOrder === "Rate") return b.rate - a.rate; This line is to sort the products by rate
-                return a.title.localeCompare(b.title);
+                return a.product_title.localeCompare(b.product_title);
             });
         setSortedProducts(sortedProducts);
         }, [isOrder, products, query]

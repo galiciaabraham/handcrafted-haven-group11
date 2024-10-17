@@ -1,13 +1,12 @@
 interface Product {
     product_id: number;
-  seller_id: number;
-  title: string;
-  description: string;
-  price: number;
-  stock_quantity: number;
+  user_id: number;
+  product_title: string;
+  product_description: string;
+  product_price: number;
+  product_stock_quantity: number;
   category_id: number;
-  created_at: string;
-  updated_at: string;
-  image_url: string;
-  status: string
+  product_created_date: string;
+  product_updated_date: string;
+  product_image_url: string;
 }
