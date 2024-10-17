@@ -46,21 +46,21 @@ export async function fetchAllPosts () {
     const posts = [
       {
         post_id: 1,
-        user_id: 100,
-        title: "First Post",
-        content: "This is the content of the first post.",
-        created_at: "2024-10-11T12:00:00Z",
-        updated_at: "2024-10-11T12:00:00Z",
-        likes_count: 23
+        user_id: 1,
+        post_title: "First Post",
+        post_content: "This is the content of the first post.",
+        post_create_at: "2024-10-11T12:00:00Z",
+        post_updated_at: "2024-10-11T12:00:00Z",
+        post_likes_count: 23
       },
       {
-        post_id: 2,
-        user_id: 101,
-        title: "Second Post",
-        content: "This is the content of the second post.",
-        created_at: "2024-10-12T14:30:00Z",
-        updated_at: "2024-10-12T14:30:00Z",
-        likes_count: 17
+        post_id: 1,
+        user_id: 2,
+        post_title: "Second Post",
+        post_content: "This is the content of the second post.",
+        post_create_at: "2024-10-12T12:00:00Z",
+        post_updated_at: "2024-10-12T12:00:00Z",
+        post_likes_count: 50
       },
       ];
       return posts;
