@@ -4,7 +4,7 @@ export default function PostPreview({posts}: {
     return (   
         <>
         {posts?.map((post) => (
-            <div className=" relative m-4 bg-main-2 p-4 rounded-md shadow-md">
+            <div key={post.post_id} className=" relative m-4 bg-main-2 p-4 rounded-md shadow-md">
                 <h2 className=" text-secondary-2 text-titles">{post.post_title}</h2>
                 <p className="font-body-text text-secondary-2 p-3">{post.post_content}</p>
                 <span className="font-body-text text-secondary-2 p-3">{post.post_create_at}</span>
