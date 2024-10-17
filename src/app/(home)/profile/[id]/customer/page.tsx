@@ -1,8 +1,9 @@
+import ProfileInfo from "@/app/ui/profile/profile-info"
 
-export default function Customer () {
+export default function CustomerProfile () {
     return (
         <div>
-        Hello World
+            <ProfileInfo />
         </div>
         
     )
