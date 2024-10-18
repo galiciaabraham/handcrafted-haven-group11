@@ -1,5 +1,5 @@
 
-export default function Customer () {
+export default function SellerProfile () {
     return (
         <div>
         Hello World
