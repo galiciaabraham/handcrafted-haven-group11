@@ -26,16 +26,15 @@ export async function fetchAllPosts () {
 
 export async function likePost ({post_id, likesCount} : {
   post_id : number,
-  likesCount : number;
+  likesCount : number ;
 
 }) {
   console.log('The function gets called');  
   try {
+    console.log(`Updating post_id: ${post_id} with new likes count: ${likesCount}`);
     console.log('The query fails');
     await sql`UPDATE posts SET post_likes_count = ${likesCount} WHERE post_id = ${post_id}`
     console.log('The query succeeds');
-    revalidatePath('/feed');
-    console.log('the revalidation succeeds')
   } catch (err) {
     console.error('Error when submiting a like', err);
     throw new Error(`Failed to update likes count on post ID: ${post_id}`)
