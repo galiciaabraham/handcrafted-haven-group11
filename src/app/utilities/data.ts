@@ -1,3 +1,5 @@
+'use server'; 
+
  import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 
@@ -29,12 +31,9 @@ export async function likePost ({post_id, likesCount} : {
   likesCount : number ;
 
 }) {
-  console.log('The function gets called');  
   try {
-    console.log(`Updating post_id: ${post_id} with new likes count: ${likesCount}`);
-    console.log('The query fails');
     await sql`UPDATE posts SET post_likes_count = ${likesCount} WHERE post_id = ${post_id}`
-    console.log('The query succeeds');
+    revalidatePath('/feed');
   } catch (err) {
     console.error('Error when submiting a like', err);
     throw new Error(`Failed to update likes count on post ID: ${post_id}`)

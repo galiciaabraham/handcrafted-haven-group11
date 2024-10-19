@@ -6,27 +6,22 @@ import LikeButton from "@/app/utilities/like-button"
 
 export default function PostPreview({posts}: {
     posts: Array<Post>,
-    //onClickLike : (post_id: number) => void;
 }) {
     const [renderedPosts, setRenderedPosts] = useState(posts);
-
     const handleLikeChange = async (post_id: number)  => {
-        console.log(`These are the pre-rendered posts`);
-        console.log(posts)
-        const updatedPosts = await Promise.all(renderedPosts.map(async post =>{
-            if (post.post_id === post_id) {
-                console.log(`This is the post_id: ${post_id}`)
-                console.log(`This is the post.post_id: ${post.post_id}` );
-                const newLikesCount = post.post_likes_count + 1;
-                console.log('This is the likesCount after clicked', newLikesCount)
-                await likePost({ post_id, likesCount: newLikesCount });
-                return { ...post, post_likes_count: newLikesCount };
-            }
-            return post;
+        
+        const updatedPosts = await Promise.all(
+            renderedPosts.map(
+                async post =>{
+                    if (post.post_id === post_id) {
+                        console.log(post.post_likes_count);
+                        const newLikesCount = post.post_likes_count + 1;
+                        await likePost({ post_id, likesCount: newLikesCount });
+                        return { ...post, post_likes_count: newLikesCount };
+                    }
+                    return post;
         }));
         setRenderedPosts(updatedPosts);
-        console.log(`These are the rendered posts`);
-        console.log(renderedPosts);
     }
 
     return (   
