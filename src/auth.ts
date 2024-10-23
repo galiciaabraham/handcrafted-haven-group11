@@ -9,6 +9,9 @@ import bcrypt from 'bcrypt';
 async function getUser(email: string): Promise<User | undefined> {
   try {
     const user = await sql<User>`SELECT * FROM users WHERE user_email=${email}`;
+    console.log(user)
+    console.log(user.rows)
+    console.log(user.rows[0])
     return user.rows[0];
   } catch (error) {
     console.error('Failed to fetch user:', error);
@@ -27,12 +30,13 @@ export const { auth, signIn, signOut } = NextAuth({
  
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
+          console.log(`This is the entered password,"${password}"`);
           const user = await getUser(email);
-          //console.log(user.user_email)
           if (!user) return null;
           const passwordsMatch = (password === user.user_password) ? true : false;
           //const passwordsMatch = await bcrypt.compare(password, user.password);
-          
+          if (!passwordsMatch) {console.log('The passord did not match, here is your user', user)};
+          if (passwordsMatch) {console.log('The password matched, here is your user', user)};
           if (passwordsMatch) return user;
         }
         //console.log('Invalid credentials');

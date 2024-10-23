@@ -26,17 +26,51 @@ export async function fetchAllPosts () {
   }
 }
 
-export async function likePost ({post_id, likesCount} : {
+export async function checkIfLiked({user_id, post_id} : {
+  user_id : number,
   post_id : number,
-  likesCount : number ;
 
 }) {
   try {
-    await sql`UPDATE posts SET post_likes_count = ${likesCount} WHERE post_id = ${post_id}`
-    revalidatePath('/feed');
+    const liked = await sql`SELECT * FROM post_likes WHERE user_id = ${user_id} AND post_id = ${post_id} AND post_liked = true`;
+    if (liked.rows.length > 0) {
+      console.log('already liked')
+      return true;
+    } else {
+      console.log('not liked before')
+      return false;
+    }
+  } catch (err) {
+    console.error('Error when checking for a like', err);
+    throw new Error(`Failed to check likes count on post ID: ${post_id}`)
+  }
+}
+
+export async function likePost ({user_id, post_id} : {
+  user_id : number,
+  post_id : number,
+
+}) {
+  try {
+    await sql`INSERT into post_likes (post_id, user_id, post_liked) VALUES (${post_id}, ${user_id}, true)`;
+    //revalidatePath('/feed');
   } catch (err) {
     console.error('Error when submiting a like', err);
     throw new Error(`Failed to update likes count on post ID: ${post_id}`)
+  }
+}
+
+export async function sumLikes ({post_id}: {post_id : number }) {
+  try {
+    const liked = await sql`SELECT * FROM post_likes WHERE post_id = ${post_id} AND post_liked = true`;
+    console.log('This is the number of likes:', liked.rows.length);
+    const likeCount = liked.rows.length;
+    await sql`UPDATE posts SET post_likes_count = ${likeCount} WHERE post_id = ${post_id}`
+    return likeCount;
+
+  } catch (err) {
+    console.error('Error when making the maths of likes', err);
+    throw new Error(`Failed to update like count`);
   }
 }
 

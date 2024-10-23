@@ -4,7 +4,6 @@ import { montserrat } from '@/app/ui/fonts';
 import { Button } from '../button';
 import { useActionState } from 'react';
 import { authenticate } from '@/app/utilities/actions';
-import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(
@@ -28,7 +27,7 @@ export default function LoginForm() {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border  py-[9px] pl-10 text-sm outline-2 placeholder:text-black"
+                className="peer block w-full rounded-md border  py-[9px] pl-10 text-sm outline-2 placeholder:text-black text-black"
                 id="email"
                 type="email"
                 name="email"
@@ -47,7 +46,7 @@ export default function LoginForm() {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-black"
+                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-black text-black"
                 id="password"
                 type="password"
                 name="password"

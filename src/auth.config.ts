@@ -20,6 +20,9 @@ export const authConfig = {
 
       return true;
     },
+    session({ session, token, user }) {
+      return session // The return type will match the one returned in `useSession()`
+    },
   },
   providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig;
