@@ -20,7 +20,6 @@ const config: Config = {
     fontFamily: {
       "titles": ['Oswald', 'ui-serif'],
       "body-text": ['Montserrat', 'ui-sans-serif'],
-      "display" :['Oswald', 'ui-serif']
     },
     extend: {
     },

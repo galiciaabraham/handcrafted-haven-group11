@@ -1,12 +1,14 @@
-import FetchProducts from "@/app/ui/shop/FetchProducts";
 import { Suspense } from "react";
+import FetchPosts from "@/app/ui/feed/FetchPosts";
 
 export default function Page() {
     return (
-    <>
+        <>
+          <>
     <Suspense>
-    <FetchProducts />
+    <FetchPosts />
     </Suspense>
-    </>
+    </>  
+        </>
     )
 }
