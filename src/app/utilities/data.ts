@@ -2,6 +2,7 @@
 
  import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
+import { ProductDetails, SellerDetails, ReviewDetails } from "./definitions";
 
 export async function fetchAllProducts () {
     try {
@@ -72,5 +73,87 @@ export async function sumLikes ({post_id}: {post_id : number }) {
     console.error('Error when making the maths of likes', err);
     throw new Error(`Failed to update like count`);
   }
+}
+
+
+
+
+export async function fetchProductDetails(product_id: string){
+  try {
+    const { rows } = await sql<ProductDetails>` SELECT 
+    user_id,
+    product_title,
+    product_description,
+    product_price,
+    product_stock_quantity,
+    category_id,
+    product_created_date,
+    product_updated_date,
+    product_image_url
+FROM 
+    public.products
+WHERE 
+    product_id = ${product_id};`
+
+    const product = rows[0];
+    return product;
+  } catch (error) {
+    console.error('Error retrieving product information', error);
+    throw new Error('Failed to retrieve product information');
+  }
+  
+}
+
+export async function fetchSellerDetailsByProductId(product_id: string){
+  try {
+    const { rows } = await sql<SellerDetails>`SELECT 
+    u.user_id,
+    u.user_name,
+    u.user_join_date,
+    u.user_profile_picture,
+    u.user_bio
+  FROM 
+    public.users u
+  JOIN 
+    public.products p
+  ON 
+    u.user_id = p.user_id
+  WHERE 
+    p.product_id = ${product_id};`
+
+    const seller = rows[0];
+    return seller;
+  } catch (error) {
+    console.error('Error retrieving seller information', error);
+    throw new Error('Failed to retrieve seller information');
+  }
+  
+}
+
+
+export async function fetchReviewsByProductId(product_id: string){
+  try {
+    const { rows } = await sql<ReviewDetails>`SELECT 
+    users.user_name,
+    reviews.review_id,
+    reviews.review_comment,
+    reviews.review_rating,
+    reviews.review_created_date
+  FROM 
+    public.reviews
+  JOIN 
+    public.users
+  ON 
+    reviews.user_id = users.user_id
+  WHERE 
+    reviews.product_id = ${product_id};`
+
+    const reviews = rows;
+    return reviews;
+  } catch (error) {
+    console.error('Error retrieving reviews information', error);
+    throw new Error('Failed to retrieve reviews information');
+  }
+  
 }
 
