@@ -27,7 +27,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="HC Haven" />
       </head>
       <body
-        className={`${montserrat.className} antialiased`}
+        // className={`${montserrat.className} antialiased`}
       >
         <header>
         <NavBar/>

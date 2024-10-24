@@ -1,44 +1,81 @@
-import { sql } from "@vercel/postgres";
+'use server'; 
+
+ import { sql } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
 import { ProductDetails, SellerDetails, ReviewDetails } from "./definitions";
 
 export async function fetchAllProducts () {
     try {
-        // const data = await sql`This will eventually be an SQL query to get all the products`;
-        // const products = data; //Later this data should be formated.
-        const products = [
-            {
-              product_id: 1234,
-              seller_id: 4321,
-              title: "Awesome new product",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-              price: 9999,
-              stock_quantity: 100,
-              category_id: 7894,
-              created_at: new Date().toISOString().split('T')[0],
-              updated_at: new Date().toISOString().split('T')[0],
-              image_url: "/products/3949b801bbd9.jpg",
-              status: "active"
-            },
-            {
-              product_id: 1235,
-              seller_id: 4311,
-              title: "Not awesome new product",
-              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-              price: 7799,
-              stock_quantity: 10,
-              category_id: 7842,
-              created_at: new Date().toISOString().split('T')[0],
-              updated_at: new Date().toISOString().split('T')[0],
-              image_url: "/products/3949b801bbd9.jpg",
-              status: "active"
-            }
-          ];
+        const { rows } = await sql<Product>`SELECT * FROM products`;
+        const products = rows; //Later this data should be formated.
           return products;
     } catch (err) {
         console.error('Error fetching data', err);
         throw new Error('Failed to fetch the products');
     }
 }
+
+export async function fetchAllPosts () {
+    try {
+      const { rows } = await sql<Post>`SELECT * FROM posts`;
+      const posts = rows;
+      return posts;
+
+  } catch (err) {
+      console.error('Error fetching data', err);
+      throw new Error('Failed to fetch the posts');
+  }
+}
+
+export async function checkIfLiked({user_id, post_id} : {
+  user_id : number,
+  post_id : number,
+
+}) {
+  try {
+    const liked = await sql`SELECT * FROM post_likes WHERE user_id = ${user_id} AND post_id = ${post_id} AND post_liked = true`;
+    if (liked.rows.length > 0) {
+      console.log('already liked')
+      return true;
+    } else {
+      console.log('not liked before')
+      return false;
+    }
+  } catch (err) {
+    console.error('Error when checking for a like', err);
+    throw new Error(`Failed to check likes count on post ID: ${post_id}`)
+  }
+}
+
+export async function likePost ({user_id, post_id} : {
+  user_id : number,
+  post_id : number,
+
+}) {
+  try {
+    await sql`INSERT into post_likes (post_id, user_id, post_liked) VALUES (${post_id}, ${user_id}, true)`;
+    //revalidatePath('/feed');
+  } catch (err) {
+    console.error('Error when submiting a like', err);
+    throw new Error(`Failed to update likes count on post ID: ${post_id}`)
+  }
+}
+
+export async function sumLikes ({post_id}: {post_id : number }) {
+  try {
+    const liked = await sql`SELECT * FROM post_likes WHERE post_id = ${post_id} AND post_liked = true`;
+    console.log('This is the number of likes:', liked.rows.length);
+    const likeCount = liked.rows.length;
+    await sql`UPDATE posts SET post_likes_count = ${likeCount} WHERE post_id = ${post_id}`
+    return likeCount;
+
+  } catch (err) {
+    console.error('Error when making the maths of likes', err);
+    throw new Error(`Failed to update like count`);
+  }
+}
+
+
 
 
 export async function fetchProductDetails(product_id: string){
