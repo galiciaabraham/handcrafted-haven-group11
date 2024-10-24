@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { likePost, checkIfLiked, sumLikes } from "@/app/utilities/data";
 import LikeButton from "@/app/utilities/like-button";
-import { useSession } from "next-auth/react";
+//import { useSession } from "next-auth/react";
 
 export default function PostPreview({posts}: {
     posts: Array<Post>,
