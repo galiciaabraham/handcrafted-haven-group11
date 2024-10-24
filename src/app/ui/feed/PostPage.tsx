@@ -11,7 +11,7 @@ export default function PostPage({posts, session}:
     }
 ) {
     return (
-        <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-4 m-5 mb-20">
         <SessionProvider session={session}>
         <PostPreview posts={posts} />
         </SessionProvider>
