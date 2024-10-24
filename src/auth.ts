@@ -27,19 +27,22 @@ export const { auth, signIn, signOut } = NextAuth({
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
- 
+
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          console.log(`This is the entered password,"${password}"`);
           const user = await getUser(email);
           if (!user) return null;
-          const passwordsMatch = (password === user.user_password) ? true : false;
-          //const passwordsMatch = await bcrypt.compare(password, user.password);
-          if (!passwordsMatch) {console.log('The passord did not match, here is your user', user)};
-          if (passwordsMatch) {console.log('The password matched, here is your user', user)};
-          if (passwordsMatch) return user;
+
+          // Compara la contraseña (temporalmente sin bcrypt)
+          const passwordsMatch = password === user.user_password;
+          if (passwordsMatch) {
+            return { 
+              user_id: user.user_id, // Asegúrate de que el `user_id` esté aquí
+              email: user.user_email,
+              name: user.user_name, // u otros campos que quieras pasar
+            };
+          }
         }
-        //console.log('Invalid credentials');
         return null;
       },
     }),

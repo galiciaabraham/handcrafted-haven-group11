@@ -20,9 +20,23 @@ export const authConfig = {
 
       return true;
     },
-    session({ session, token, user }) {
-      return session // The return type will match the one returned in `useSession()`
-    },
+
+      async session({ session, token, user }) {
+        // Aquí añades el `user_id` a la sesión
+        if (session?.user) {
+          session.user.id = token.id; // o `user.id` dependiendo de donde esté disponible
+        }
+        return session;
+      },
+      async jwt({ token, user }) {
+        // Añade el `user_id` al token si el usuario está autenticado
+        if (user) {
+          token.id = user.user_id; // o el campo que corresponda a `user_id`
+        }
+        return token;
+      },
+    
+    
   },
   providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig;
