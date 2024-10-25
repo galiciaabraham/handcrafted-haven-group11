@@ -9,9 +9,6 @@ import bcrypt from 'bcrypt';
 async function getUser(email: string): Promise<User | undefined> {
   try {
     const user = await sql<User>`SELECT * FROM users WHERE user_email=${email}`;
-    // console.log(user)
-    // console.log(user.rows)
-    // console.log(user.rows[0])
     return user.rows[0];
   } catch (error) {
     console.error('Failed to fetch user:', error);
@@ -35,7 +32,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           const passwordsMatch = password === user.user_password;
           if (passwordsMatch) {
-
+            console.log(user)
             return user;
           }
         }
@@ -46,17 +43,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.user_id;
         token.user = user
       }
       return token;
     },
     async session({ session, token }) {
       if (session?.user) {
-        session.user.id = token.id; // "token.id" is the user_id
-        session.user.token = token.user
+        session.user.id = token.user.user_id, // "token.id" is the user_id
+        session.user.name = token.user.user_name,
+        session.user.email = token.user.user_email,
+        session.user.image = token.user.user_profile_picture
       }
       return session;
+    },
+    async redirect({ url, baseUrl}) {
+      return baseUrl;
     },
     
   },

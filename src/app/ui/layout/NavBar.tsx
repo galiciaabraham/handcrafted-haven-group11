@@ -5,6 +5,10 @@ import  ToggleNav  from "../../utilities/toggle-nav";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import LoginButton from "./login-button";
+
+
+
 
 export default function NavBar (){
   const [isOpen, setOpen] = useState(false);
@@ -13,6 +17,9 @@ export default function NavBar (){
   const handleHamburguer = () => { //This function changes the state isOpen when the ToggleNav which is a button is clicked.
     setOpen(!isOpen);  //In line 30, a ternary operator toggles the hidden and flex class atributes based on the state isOpen
   }
+
+
+
   return (
     <>
     <nav className="bg-main-1 shadow-lg">
@@ -20,11 +27,8 @@ export default function NavBar (){
       <HandCraftLogo/>
       <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
-          <Link 
-            href="/login"
-            className="font-text text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-sm px-4 py-2 text-center">
-            Login
-          </Link>
+          <LoginButton />
+
           <ToggleNav isOpen={isOpen} onToggle={handleHamburguer}/>
       </div>
       <div className={`items-center justify-between ${isOpen ? 'flex' : 'hidden'} w-full md:flex md:w-auto md:order-1"`}>

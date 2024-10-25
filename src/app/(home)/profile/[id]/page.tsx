@@ -13,10 +13,9 @@ export default function CustomerProfile() {
   }
 
   if (status === "authenticated" && session?.user) {
-    console.log("User ID:", session);
     return (
       <div>
-        <h2>Welcome, User ID: {session.user.token.user_email}</h2>
+        <h2>Welcome, {session.user.name}</h2>
         
         <ProfileInfo />
         <ProfileReviews />
