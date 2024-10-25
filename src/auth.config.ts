@@ -20,6 +20,7 @@ export const authConfig = {
       if (token) {
         session.user.id = token.id;
       }
+      console.log("session: " + session)
       return session;
     },
 
@@ -27,8 +28,10 @@ export const authConfig = {
       if (user) {
         token.id = user.id;
       }
+      console.log("token: " + token)
       return token;
     },
   },
   providers: [],
+  secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
