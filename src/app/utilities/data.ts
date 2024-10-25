@@ -4,6 +4,8 @@
 import { revalidatePath } from "next/cache";
 import { ProductDetails, SellerDetails, ReviewDetails } from "./definitions";
 
+
+
 export async function fetchAllProducts () {
     try {
         const { rows } = await sql<Product>`SELECT * FROM products`;
@@ -156,4 +158,5 @@ export async function fetchReviewsByProductId(product_id: string){
   }
   
 }
+
 

@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 import FetchPosts from "@/app/ui/feed/FetchPosts";
 import AddPostButton from "@/app/ui/feed/AddPostButton"
 
