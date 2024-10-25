@@ -33,13 +33,12 @@ export const { auth, signIn, signOut } = NextAuth({
           const user = await getUser(email);
           if (!user) return null;
 
-          // Compara la contraseña (temporalmente sin bcrypt)
           const passwordsMatch = password === user.user_password;
           if (passwordsMatch) {
             return { 
-              user_id: user.user_id, // Asegúrate de que el `user_id` esté aquí
+              user_id: user.user_id,
               email: user.user_email,
-              name: user.user_name, // u otros campos que quieras pasar
+              name: user.user_name,
             };
           }
         }
@@ -47,4 +46,19 @@ export const { auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token }) {
+      // Asegurarse de incluir el user_id en la sesión
+      if (session?.user) {
+        session.user.id = token.id; // "token.id" is the user_id
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.user_id;
+      }
+      return token;
+    },
+  },
 });
