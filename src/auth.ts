@@ -35,11 +35,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           const passwordsMatch = password === user.user_password;
           if (passwordsMatch) {
-            return { 
-              user_id: user.user_id,
-              email: user.user_email,
-              name: user.user_name,
-            };
+
+            return user;
           }
         }
         return null;
@@ -50,12 +47,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.user_id;
+        token.user = user
       }
       return token;
     },
     async session({ session, token }) {
       if (session?.user) {
         session.user.id = token.id; // "token.id" is the user_id
+        session.user.token = token.user
       }
       return session;
     },
