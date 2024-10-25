@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
   }
 
   /////////
-  console.log('User ID from token:', token.id);
+  //console.log('User ID from token:', token);
 
   return NextResponse.next();
 }

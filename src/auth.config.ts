@@ -16,22 +16,36 @@ export const authConfig = {
       return true; // Enable other routes access
     },
 
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id;
-      }
-      console.log("session: " + session)
-      return session;
-    },
-
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
       }
-      console.log("token: " + token)
       return token;
     },
+
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+
+
   },
   providers: [],
+  session: { strategy: "jwt" },
   secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
+
+
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    accessToken?: string
+  }
+}
