@@ -20,7 +20,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
@@ -49,13 +49,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     async session({ session, token }) {
       if (session?.user) {
-        session.user.id = token.user.user_id, // "token.id" is the user_id
-        session.user.name = token.user.user_name,
-        session.user.email = token.user.user_email,
-        session.user.image = token.user.user_profile_picture
+        const user = token.user as User;
+        session.user.id = user.user_id; // "token.id" is the user_id
+        session.user.name = user.user_name;
+        session.user.email = user.user_email;
+        //session.user.image = user.user_profile_picture
       }
       return session;
     },
+
     async redirect({ url, baseUrl}) {
       return baseUrl;
     },
