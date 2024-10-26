@@ -3,13 +3,22 @@ import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
-import type { User } from '@/app/utilities/definitions';
+import type { User, UserProfile } from '@/app/utilities/definitions';
 import bcrypt from 'bcrypt';
+
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
-    const user = await sql<User>`SELECT * FROM users WHERE user_email=${email}`;
-    return user.rows[0];
+    const userData = await sql<UserProfile>`SELECT * FROM users WHERE user_email=${email}`;
+    
+    const user:User = {
+      id:userData.rows[0].user_id,
+      name:userData.rows[0].user_name,
+      email:userData.rows[0].user_email,
+      password:userData.rows[0].user_password,
+
+    }
+    return user;
   } catch (error) {
     console.error('Failed to fetch user:', error);
     throw new Error('Failed to fetch user.');
@@ -28,11 +37,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
+          
           if (!user) return null;
       
-          const passwordsMatch = password === user.user_password;
+          const passwordsMatch = password === user.password;
           if (passwordsMatch) {
-            return user as any;
+            return user;
           }
         }
         return null;
@@ -47,12 +57,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return token;
     },
     async session({ session, token }) {
+      const userId :any = token.sub 
       if (session?.user) {
-        const user = token.user as User;
-        session.user.id = user.user_id; // "token.id" is the user_id
-        session.user.name = user.user_name;
-        session.user.email = user.user_email;
-        //session.user.image = user.user_profile_picture
+        session.user.id = userId
       }
       return session;
     },
@@ -60,6 +67,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async redirect({ url, baseUrl}) {
       return baseUrl;
     },
-    
+
   },
 });

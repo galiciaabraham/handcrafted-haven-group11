@@ -5,8 +5,9 @@ import ProfileOrders from "@/app/ui/profile/profile-orders";
 import ProfileReviews from "@/app/ui/profile/profile-reviews";
 import { useSession } from "next-auth/react";
 
-export default function CustomerProfile() {
+export default function Profile() {
   const { data: session, status } = useSession();
+  console.log(session)
 
   if (status === "loading") {
     return <div>Loading...</div>; // Mostrar algo mientras carga la sesión

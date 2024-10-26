@@ -5,16 +5,21 @@ export const authConfig = {
     signIn: '/login',
   },
   callbacks: {
-    async authorized({ auth, request: { nextUrl } }) {
-      const isLoggedIn = !!auth?.user;
-      const isOnProfilePage = nextUrl.pathname.startsWith('/profile');
+    // async authorized({ auth, request: { nextUrl } }) {
+    //   const isLoggedIn = !!auth?.user;
+    //   console.log("login", isLoggedIn)
+    //   const isOnLoginPage = nextUrl.pathname.startsWith('/login');
+    //   console.log("logueado", isOnLoginPage)
 
-      if (isOnProfilePage) {
-        return isLoggedIn;
-      }
+    //   if (isLoggedIn && isOnLoginPage) {
+        
+    //       return Response.redirect(new URL('/', nextUrl));
+    //     }
+      
+      
 
-      return true; // Enable other routes access
-    },
+    //   return true; // Enable other routes access
+    // },
   },
   providers: [],
   secret: process.env.AUTH_SECRET,
