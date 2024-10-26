@@ -3,6 +3,7 @@
  import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { ProductDetails, SellerDetails, ReviewDetails, User } from "./definitions";
+import { hashPassword } from "./actions";
 
 export async function fetchAllProducts () {
     try {
@@ -158,25 +159,31 @@ export async function fetchReviewsByProductId(product_id: string){
 }
 
 
-export async function insertNewUser ({user_name, user_email, user_password, user_type} : {
-  user_name : string;
-  user_email : string;
-  user_password : string;
-  user_type : "Customer" | "Seller"
-}) {
+export async function insertNewUser (formData : any) {
 
+  const registerFormData = Object.fromEntries(formData);
 
-  const newDate  = (new Date()).toString();
-  const joinDate : string = newDate
+  console.log("pass",registerFormData)
+  const hashedPassword = await hashPassword(registerFormData.password)
   
   const userProfilePicture : string = "images/profile/default.jpg"
   const userBio : string = "Write about you"
+  
 
   try {
-    await sql<User>`INSERT into users (user_name, user_email, user_password, user_type, user_join_date, user_profile_picture, user_bio) VALUES (${user_name}, ${user_email}, ${user_password}, ${user_type}, ${joinDate}, ${userProfilePicture}, ${userBio} )`;
+    const response = await sql`INSERT into users (user_name, user_email, user_password, user_type, user_join_date, user_profile_picture, user_bio) VALUES (${registerFormData.name}, ${registerFormData.email}, ${hashedPassword}, ${registerFormData.type}, NOW(), ${userProfilePicture}, ${userBio} )`;
+
+    if(response) {
+      return "success"
+    } else {
+      return "fail"
+    }
 
   } catch (err) {
     console.error('Error when creating user', err);
     throw new Error(`Failed to create user`)
   }
+
+  
+
 }
