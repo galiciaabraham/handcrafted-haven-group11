@@ -1,16 +1,17 @@
-import { sql } from "@vercel/postgres";
-import { revalidatePath } from "next/cache";
-import { z } from 'zod';
+'use server';
 
+import { sql } from "@vercel/postgres";
+import { z } from 'zod';
+import { redirect } from "next/navigation";
 
 
 const PostFormSchema = z.object({
     user_id: z.string(),
     post_content: z.string({
-        invalid_type_error: 'Please enter valid content',
+        invalid_type_error: 'Seems that you might be missing some words...',
     }),
     post_title: z.string({
-      invalid_type_error: 'Please enter a valid title',
+      invalid_type_error: 'Seems that you might be missing a title...',
     }
      ),
   });
@@ -50,12 +51,13 @@ const PostFormSchema = z.object({
       await sql `
       INSERT INTO posts (user_id, post_title, post_content, post_create_at, post_updated_at, post_likes_count)
       VALUES (${user_id}, ${post_title}, ${post_content}, ${post_create_at}, ${post_updated_at}, ${post_likes_count} )`;
+      console.log('post correctly posted');
   
       } catch (error) {
           console.log(error)
           console.log('Error creating invoice')
       };
   
-      revalidatePath('/posts');
+      redirect('/feed');
   }
   
