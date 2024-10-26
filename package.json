@@ -15,9 +15,9 @@
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
     "next": "15.0.0-canary.56",
-    "next-auth": "5.0.0-beta.22",
-    "react": "19.0.0-rc-f38c22b244-20240704",
-    "react-dom": "19.0.0-rc-f38c22b244-20240704",
+    "next-auth": "5.0.0-beta.25",
+    "react": "19.0.0-rc.0",
+    "react-dom": "19.0.0-rc.0",
     "use-debounce": "^10.0.4",
     "zod": "^3.23.8"
   },
