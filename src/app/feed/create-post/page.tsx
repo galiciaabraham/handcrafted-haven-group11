@@ -8,7 +8,8 @@ export default function CreatePost() {
     const initialState: State = { message: null, errors: {} };
     const [state, formAction] = useActionState(addPostAction, initialState);
     //const [ data: session] = useSession();
-    const session = {user_id: 2}
+    const session = {user_id: 2, user_type : 'Seller'};    
+
 
     return (
         <>
@@ -44,6 +45,15 @@ export default function CreatePost() {
                 </div>
             </div>
             <input type="hidden" name='user_id' id="user_id" value={session.user_id}/>
+            <input type="hidden" name='user_type' id="user_type" value={session.user_type}/>
+            <div id="customer-error" aria-live="polite" aria-atomic="true">
+              {state?.errors?.user_type &&
+                state.errors.user_type.map((error: string) => (
+                  <p className="m-4 text-md font-semibold text-secondary-2" key={error}>
+                    {error}
+                  </p>
+                ))}
+                </div>
 
             <div className='flex justify-center'>
             <input type="submit" value="Post" className=" text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-md text-center m-4 p-6" />
