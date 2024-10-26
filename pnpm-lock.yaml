@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@smastrom/react-rating':
     specifier: ^1.5.0
-    version: 1.5.0(react-dom@19.0.0-rc.0)(react@19.0.0-rc.0)
+    version: 1.5.0(react-dom@19.0.0-rc-f38c22b244-20240704)(react@19.0.0-rc-f38c22b244-20240704)
   '@vercel/postgres':
     specifier: ^0.10.0
     version: 0.10.0
@@ -22,19 +22,19 @@ dependencies:
     version: 2.1.1
   next:
     specifier: 15.0.0-canary.56
-    version: 15.0.0-canary.56(react-dom@19.0.0-rc.0)(react@19.0.0-rc.0)
+    version: 15.0.0-canary.56(react-dom@19.0.0-rc-f38c22b244-20240704)(react@19.0.0-rc-f38c22b244-20240704)
   next-auth:
-    specifier: 5.0.0-beta.25
-    version: 5.0.0-beta.25(next@15.0.0-canary.56)(react@19.0.0-rc.0)
+    specifier: 5.0.0-beta.22
+    version: 5.0.0-beta.22(next@15.0.0-canary.56)(react@19.0.0-rc-f38c22b244-20240704)
   react:
-    specifier: 19.0.0-rc.0
-    version: 19.0.0-rc.0
+    specifier: 19.0.0-rc-f38c22b244-20240704
+    version: 19.0.0-rc-f38c22b244-20240704
   react-dom:
-    specifier: 19.0.0-rc.0
-    version: 19.0.0-rc.0(react@19.0.0-rc.0)
+    specifier: 19.0.0-rc-f38c22b244-20240704
+    version: 19.0.0-rc-f38c22b244-20240704(react@19.0.0-rc-f38c22b244-20240704)
   use-debounce:
     specifier: ^10.0.4
-    version: 10.0.4(react@19.0.0-rc.0)
+    version: 10.0.4(react@19.0.0-rc-f38c22b244-20240704)
   zod:
     specifier: ^3.23.8
     version: 3.23.8
@@ -75,8 +75,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /@auth/core@0.37.2:
-    resolution: {integrity: sha512-kUvzyvkcd6h1vpeMAojK2y7+PAV5H+0Cc9+ZlKYDFhDY31AlvsB+GW5vNO4qE3Y07KeQgvNO9U0QUx/fN62kBw==}
+  /@auth/core@0.35.3:
+    resolution: {integrity: sha512-g6qfiqU4OtyvIEZ8J7UoIwAxEnNnLJV0/f/DW41U+4G5nhBlaCrnKhawJIJpU0D3uavXLeDT3B0BkjtiimvMDA==}
     peerDependencies:
       '@simplewebauthn/browser': ^9.0.1
       '@simplewebauthn/server': ^9.0.2
@@ -91,9 +91,9 @@ packages:
     dependencies:
       '@panva/hkdf': 1.2.1
       '@types/cookie': 0.6.0
-      cookie: 0.7.1
+      cookie: 0.6.0
       jose: 5.9.4
-      oauth4webapi: 3.1.2
+      oauth4webapi: 2.17.0
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
@@ -547,14 +547,14 @@ packages:
     resolution: {integrity: sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==}
     dev: true
 
-  /@smastrom/react-rating@1.5.0(react-dom@19.0.0-rc.0)(react@19.0.0-rc.0):
+  /@smastrom/react-rating@1.5.0(react-dom@19.0.0-rc-f38c22b244-20240704)(react@19.0.0-rc-f38c22b244-20240704):
     resolution: {integrity: sha512-7vg3NRgO0tpvEunq8BEWA8qckNSd7x3dVGqaNEfLs3Ow4ibU2EEXJtnd7Yl44xOujWIzXM5Bk2VZm2DVm065Qw==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
     dependencies:
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
+      react: 19.0.0-rc-f38c22b244-20240704
+      react-dom: 19.0.0-rc-f38c22b244-20240704(react@19.0.0-rc-f38c22b244-20240704)
     dev: false
 
   /@swc/helpers@0.5.11:
@@ -1142,8 +1142,8 @@ packages:
     resolution: {integrity: sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==}
     dev: false
 
-  /cookie@0.7.1:
-    resolution: {integrity: sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w==}
+  /cookie@0.6.0:
+    resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
     dev: false
 
@@ -2503,8 +2503,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth@5.0.0-beta.25(next@15.0.0-canary.56)(react@19.0.0-rc.0):
-    resolution: {integrity: sha512-2dJJw1sHQl2qxCrRk+KTQbeH+izFbGFPuJj5eGgBZFYyiYYtvlrBeUw1E/OJJxTRjuxbSYGnCTkUIRsIIW0bog==}
+  /next-auth@5.0.0-beta.22(next@15.0.0-canary.56)(react@19.0.0-rc-f38c22b244-20240704):
+    resolution: {integrity: sha512-QGBo9HGOjmnJBHGXvtFztl0tM5tL0porDlk74HVoCCzXd986ApOlIW3EmiCuho7YzEopgkFiwwmcXpoCrHAtYw==}
     peerDependencies:
       '@simplewebauthn/browser': ^9.0.1
       '@simplewebauthn/server': ^9.0.2
@@ -2519,12 +2519,12 @@ packages:
       nodemailer:
         optional: true
     dependencies:
-      '@auth/core': 0.37.2
-      next: 15.0.0-canary.56(react-dom@19.0.0-rc.0)(react@19.0.0-rc.0)
-      react: 19.0.0-rc.0
+      '@auth/core': 0.35.3
+      next: 15.0.0-canary.56(react-dom@19.0.0-rc-f38c22b244-20240704)(react@19.0.0-rc-f38c22b244-20240704)
+      react: 19.0.0-rc-f38c22b244-20240704
     dev: false
 
-  /next@15.0.0-canary.56(react-dom@19.0.0-rc.0)(react@19.0.0-rc.0):
+  /next@15.0.0-canary.56(react-dom@19.0.0-rc-f38c22b244-20240704)(react@19.0.0-rc-f38c22b244-20240704):
     resolution: {integrity: sha512-Qf951CQb2dICry5QzkhpoFX6VG0er2WSdMODeeylyGpP0JPT15C4HWjoJ6Jeoqw+J8i+QvDpLR501o+oY5Qaow==}
     engines: {node: '>=18.18.0'}
     hasBin: true
@@ -2623,8 +2623,8 @@ packages:
       set-blocking: 2.0.0
     dev: false
 
-  /oauth4webapi@3.1.2:
-    resolution: {integrity: sha512-KQZkNU+xn02lWrFu5Vjqg9E81yPtDSxUZorRHlLWVoojD+H/0GFbH59kcnz5Thdjj7c4/mYMBPj/mhvGe/kKXA==}
+  /oauth4webapi@2.17.0:
+    resolution: {integrity: sha512-lbC0Z7uzAFNFyzEYRIC+pkSVvDHJTbEW+dYlSBAlCYDe6RxUkJ26bClhk8ocBZip1wfI9uKTe0fm4Ib4RHn6uQ==}
     dev: false
 
   /object-assign@4.1.1:
@@ -2965,21 +2965,21 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
-  /react-dom@19.0.0-rc.0(react@19.0.0-rc.0):
-    resolution: {integrity: sha512-MhgN2RMYFUkZekkFbsXg9ycwEGaMBzATpTNvGGvWNA9BZZEkdzIL4pv7iDuZKn48YoGARk8ydu4S+Ehd8Yrc4g==}
+  /react-dom@19.0.0-rc-f38c22b244-20240704(react@19.0.0-rc-f38c22b244-20240704):
+    resolution: {integrity: sha512-g89q2pf3irdpKFUMgCQgtxgqo3TSV1k1J6Sc8God4FwfxuNmAOOthkijENe5XZe6VeV1tor9DPzpjdTD9EyvNw==}
     peerDependencies:
-      react: 19.0.0-rc.0
+      react: 19.0.0-rc-f38c22b244-20240704
     dependencies:
-      react: 19.0.0-rc.0
-      scheduler: 0.25.0-rc.0
+      react: 19.0.0-rc-f38c22b244-20240704
+      scheduler: 0.25.0-rc-f38c22b244-20240704
     dev: false
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: true
 
-  /react@19.0.0-rc.0:
-    resolution: {integrity: sha512-8nrDCl5uE54FHeKqKrEO0TS+10bT4cxutJGb2okiJc0FHMQ6I3FeItaqly/1nbijlhSO3HmAVyPIexIQQWYAtQ==}
+  /react@19.0.0-rc-f38c22b244-20240704:
+    resolution: {integrity: sha512-OP8O6Oc1rdR9IdIKJRKaL1PYd4eGkn6f88VqiygWyyG4P4RmPPix5pp7MatqSt9TnBOcVT+lBMGoVxRgUFeudQ==}
     engines: {node: '>=0.10.0'}
     dev: false
 
@@ -3096,8 +3096,8 @@ packages:
       is-regex: 1.1.4
     dev: true
 
-  /scheduler@0.25.0-rc.0:
-    resolution: {integrity: sha512-B3aSqMfoRkucM94MztZD1CyNyf68W9A3dL/TT453G6uNcxMBqGQ+rhFKyxNnWH/mfRHlGBr0tF0F472JCETH4g==}
+  /scheduler@0.25.0-rc-f38c22b244-20240704:
+    resolution: {integrity: sha512-uAELK9fHhvg7kDQhk29+uO8FUMWUpkg9WpzkNXFP+BJy5HEtqnajde3CxuSgh202WH9TqoaiWT1mdA3DvUu6cQ==}
     dev: false
 
   /semver@6.3.1:
@@ -3326,7 +3326,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /styled-jsx@5.1.6(react@19.0.0-rc.0):
+  /styled-jsx@5.1.6(react@19.0.0-rc-f38c22b244-20240704):
     resolution: {integrity: sha512-qSVyDTeMotdvQYoHWLNGwRFJHC+i+ZvdBRYosOFgC+Wg1vx4frN2/RG/NA7SYqqvKNLf39P2LSRA2pu6n0XYZA==}
     engines: {node: '>= 12.0.0'}
     peerDependencies:
@@ -3340,7 +3340,7 @@ packages:
         optional: true
     dependencies:
       client-only: 0.0.1
-      react: 19.0.0-rc.0
+      react: 19.0.0-rc-f38c22b244-20240704
     dev: false
 
   /sucrase@3.35.0:
@@ -3562,13 +3562,13 @@ packages:
       punycode: 2.3.1
     dev: true
 
-  /use-debounce@10.0.4(react@19.0.0-rc.0):
+  /use-debounce@10.0.4(react@19.0.0-rc-f38c22b244-20240704):
     resolution: {integrity: sha512-6Cf7Yr7Wk7Kdv77nnJMf6de4HuDE4dTxKij+RqE9rufDsI6zsbjyAxcH5y2ueJCQAnfgKbzXbZHYlkFwmBlWkw==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       react: '*'
     dependencies:
-      react: 19.0.0-rc.0
+      react: 19.0.0-rc-f38c22b244-20240704
     dev: false
 
   /util-deprecate@1.0.2:
