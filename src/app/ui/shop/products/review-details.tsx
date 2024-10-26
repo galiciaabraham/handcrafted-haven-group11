@@ -4,6 +4,7 @@ import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import Link from "next/link";
 
+
 export default async function ReviewDetails({id}: {id:string}){
 
     const reviews = await fetchReviewsByProductId(id);

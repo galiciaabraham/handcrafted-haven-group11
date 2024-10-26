@@ -9,9 +9,6 @@ import bcrypt from 'bcrypt';
 async function getUser(email: string): Promise<User | undefined> {
   try {
     const user = await sql<User>`SELECT * FROM users WHERE user_email=${email}`;
-    console.log(user)
-    console.log(user.rows)
-    console.log(user.rows[0])
     return user.rows[0];
   } catch (error) {
     console.error('Failed to fetch user:', error);
@@ -19,29 +16,51 @@ async function getUser(email: string): Promise<User | undefined> {
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
  
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          console.log(`This is the entered password,"${password}"`);
           const user = await getUser(email);
           if (!user) return null;
-          const passwordsMatch = (password === user.user_password) ? true : false;
-          //const passwordsMatch = await bcrypt.compare(password, user.password);
-          if (!passwordsMatch) {console.log('The passord did not match, here is your user', user)};
-          if (passwordsMatch) {console.log('The password matched, here is your user', user)};
-          if (passwordsMatch) return user;
+
+          const passwordsMatch = password === user.user_password;
+          if (passwordsMatch) {
+            return user as any;
+          }
         }
         //console.log('Invalid credentials');
         return null;
-      },
+      }
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session?.user) {
+        const user = token.user as User;
+        session.user.id = user.user_id; // "token.id" is the user_id
+        session.user.name = user.user_name;
+        session.user.email = user.user_email;
+        //session.user.image = user.user_profile_picture
+      }
+      return session;
+    },
+
+    async redirect({ url, baseUrl}) {
+      return baseUrl;
+    },
+
+  },
 });

@@ -157,3 +157,19 @@ export async function fetchReviewsByProductId(product_id: string){
   
 }
 
+// export async function createReview(formData: ){
+
+//   // Validation
+//   const {comment, date, product_id, rating} = formData;
+//   // Error handling
+//   try {
+//     await sql`INSERT INTO reviews (user_id, product_id, review_rating, review_comment, review_created_date)
+//     VALUES ()`
+
+    
+//   } catch (error) {
+//     console.error('Error creating the review', error);
+//     throw new Error('Failed to create review');
+//   }
+  
+// }

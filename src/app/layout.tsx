@@ -3,6 +3,7 @@ import "./globals.css";
 import { montserrat } from "./ui/fonts";
 import NavBar from "./ui/layout/NavBar";
 import Footer from "./ui/layout/footer";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: {
@@ -14,9 +15,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <head>
@@ -26,15 +27,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="HC Haven" />
       </head>
-      <body
-        // className={`${montserrat.className} antialiased`}
-      >
-        <header>
-        <NavBar/>
-      </header>
-        
-        {children}
-        <Footer />
+      <body className={`${montserrat.className} antialiased`}>
+        <SessionProvider>
+          <header>
+            <NavBar />
+          </header>
+          {children}
+          <Footer />
+        </SessionProvider>
       </body>
       
     </html>
