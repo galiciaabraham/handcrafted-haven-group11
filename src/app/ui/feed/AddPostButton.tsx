@@ -24,7 +24,7 @@ export default function AddPostButton() {
         
         <>
             <button onClick={()=> {
-                console.log('Clicked and redirected')
+                //console.log('Clicked and redirected')
                 router.push('/feed/create-post');
                 }} type="button" className={`m-4 bg-main-1 text-main-2 border border-main-2 md:hover:bg-secondary-1 md:hover:text-main-2 font-medium rounded-full text-md p-2.5 text-center inline-flex items-center me-2 shadow-md absolute right-4 bottom-4 disabled:text-black disabled:bg-accent-1 disabled:hover:bg-accent-1 disabled:hover:text-black disabled:border-black ${isHidden ? "hidden" : ""}`} >
             Add Post
