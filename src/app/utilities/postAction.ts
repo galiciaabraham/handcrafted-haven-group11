@@ -22,7 +22,6 @@ const PostFormSchema = z.object({
   });
 
   const PostEditFormSchema = z.object({
-    user_id: z.string().min(1),
     post_content: z.string({
         invalid_type_error: 'Seems that you might be missing some words...',
     }).min(1,{message: 'Seems that you might be missing some words...'}),
@@ -69,20 +68,20 @@ const PostFormSchema = z.object({
   }
   
   export async function addPostAction(state: State | undefined, formData : FormData) : Promise<State | undefined> {
-      
         const inputData = CreatePost.safeParse({
             user_id: formData.get('user_id'),
             post_title: formData.get('post_title'),
             post_content: formData.get('post_content'),
             user_type : formData.get('user_type')
           });
-    
+
           if (!inputData.success) {
             return {
               errors: inputData.error.flatten().fieldErrors,
               message: 'Missing Fields. Failed to Add Post.',
             };
           }
+          console.log('checkpoint 3');
 
         if(inputData.data.user_type !== 'Seller') {
           return {
@@ -90,13 +89,14 @@ const PostFormSchema = z.object({
             message: ' Failed to add post',
           }
         }
-    
+
         const { user_id, post_title, post_content } = inputData.data;
         const post_likes_count = 0;
         const post_create_at = new Date().toISOString().split('T')[0];
         const post_updated_at = new Date().toISOString().split('T')[0];
-    
+
       try {
+
         await sql `
         INSERT INTO posts (user_id, post_title, post_content, post_create_at, post_updated_at, post_likes_count)
         VALUES (${user_id}, ${post_title}, ${post_content}, ${post_create_at}, ${post_updated_at}, ${post_likes_count} )`;
@@ -106,22 +106,20 @@ const PostFormSchema = z.object({
             console.log(error)
             console.log('Error creating post')
         }; 
-    
+        console.log('checkpoint 7');
+
       redirect('/feed');
   }
 
   export async function editPostAction(state: State | undefined, formData : FormData) : Promise<State | undefined> {
-    console.log('checkpoint 1');
     const inputData = EditPost.safeParse({
     post_title: formData.get('post_title')?.toString(),
     post_content: formData.get('post_content')?.toString(),
-    user_type: formData.get('user_type')?.toString(),
+    user_type: formData.get('user_type')?.toString().trim(),
     post_likes_count: Number(formData.get('post_likes_count')),
     post_id: Number(formData.get('post_id'))
     });
     
-    console.log('checkpoint 2');
-
     if (!inputData.success) {
       return {
         errors: inputData.error.flatten().fieldErrors,
@@ -130,7 +128,6 @@ const PostFormSchema = z.object({
     } else {
       console.log('the inputData is failing');
     }
-    console.log('checkpoint 3');
 
   if(inputData.data.user_type !== 'Seller') {
     return {
@@ -139,13 +136,10 @@ const PostFormSchema = z.object({
     }
   }
 
-  console.log('checkpoint 4');
 
   const { post_title, post_content, post_likes_count, post_id } = inputData.data;
   const post_updated_at = new Date().toISOString().split('T')[0];
-  console.log('Update data:', {post_title, post_content, post_likes_count, post_id, post_updated_at} )
 try {
-  console.log('checkpoint 5');
   await sql `
   UPDATE posts 
   SET post_title = ${post_title},
@@ -160,8 +154,6 @@ try {
       console.log(error)
       console.log('Error editing post')
   }; 
-
-console.log('checkpoint 6');
 
 redirect('/feed');
 
