@@ -9,8 +9,7 @@ export default function PostPreview({posts}: {
     posts: Array<Post>,
 }) {
     const [renderedPosts, setRenderedPosts] = useState(posts);
-    //const { data : session } = useSession()
-    const session = false;
+    const { data : session } = useSession();
     //console.log('This is the users email', session?.user?.email);
     const [isDisabled, setDisabled] = useState(true);
 

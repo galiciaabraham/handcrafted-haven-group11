@@ -4,9 +4,11 @@ import SellerDetails from "@/app/ui/shop/products/user-details";
 import ReviewDetails from "@/app/ui/shop/products/review-details";
 import { Suspense } from "react";
 
+
 export default async function Page({params}: {params:{id:string}} ) {
 
     const id = params.id;
+    
     // const productDetails = await fetchProductDetails(id);
     return (
     <div className="grid grid-cols-1 md:grid-cols-2 p-8 gap-8 grid-rows-[auto_1fr]">

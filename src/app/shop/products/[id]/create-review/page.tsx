@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import FormReview from "@/app/ui/shop/products/reviews/create-review-form";
-import { useSession, signIn } from "next-auth/react";
+import { useSession} from "next-auth/react";
 
 
 export default function Page() {
@@ -14,7 +14,6 @@ export default function Page() {
     if (status === "loading"){
         return <p>Loading...</p>;
     }
-    console.log(status);
 
     if (status === "authenticated" && session?.user?.id){
         console.log("User ID: ", session);
