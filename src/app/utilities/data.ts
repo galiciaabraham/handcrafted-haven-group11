@@ -231,8 +231,10 @@ export async function deleteReview(reviewId: string){
       DELETE FROM reviews
       WHERE review_id = ${reviewId}
     `;
+    return { success: true };
   } catch (error) {
     console.error('Error deleting the review:', error);
-    throw new Error('Failed to delete review');
+    return { success: false, message: 'Failed to delete review' };
+
   }
 }

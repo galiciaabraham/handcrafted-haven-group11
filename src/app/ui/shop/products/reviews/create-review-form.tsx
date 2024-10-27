@@ -29,7 +29,7 @@ export default function FormReview({productId, userId} : {productId:string, user
 
         const result = await createReview(formData);
 
-        if (result.errors) {
+        if (result?.errors) {
             setErrors(result.errors);
           }
     }

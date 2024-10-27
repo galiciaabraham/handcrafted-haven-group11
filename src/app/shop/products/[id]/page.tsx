@@ -3,12 +3,13 @@ import ProductDetails from "@/app/ui/shop/products/product-details";
 import SellerDetails from "@/app/ui/shop/products/user-details";
 import ReviewDetails from "@/app/ui/shop/products/review-details";
 import { Suspense } from "react";
-
+import { fetchReviewsByProductId } from "@/app/utilities/data";
 
 export default async function Page({params}: {params:{id:string}} ) {
 
     const id = params.id;
-    
+    const reviews = await fetchReviewsByProductId(id);
+
     // const productDetails = await fetchProductDetails(id);
     return (
     <div className="grid grid-cols-1 md:grid-cols-2 p-8 gap-8 grid-rows-[auto_1fr]">
@@ -24,7 +25,7 @@ export default async function Page({params}: {params:{id:string}} ) {
         </div>
         <div className="bg-accent-1 p-4 rounded-lg col-span-1 md:col-start-2 w-full lg:max-w-[80%] mx-auto">
             <Suspense>
-                <ReviewDetails id={id}/>
+                <ReviewDetails id={id} reviews={reviews}/>
             </Suspense>
         </div>
     </div>
