@@ -38,6 +38,7 @@ export async function fetchPostsById (post_id : number ) {
         post_content: post.post_content,
         post_likes_count : post.post_likes_count,
         post_id : post.post_id,
+        user_id : post.user_id,
       }
 
 } catch (err) {

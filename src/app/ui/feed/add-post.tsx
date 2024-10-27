@@ -23,10 +23,10 @@ export default function CreatePost({userData} : AddPostProps) {
         <div className='bg-accent-1 m-4 rounded-md'>
           <form action={formAction} className='p-4'>
             <div className='m-4'>
-              <label htmlFor="post_title" className="text-md text-secondary-2 font-bold">
+              <label htmlFor="post_title" className="block text-md text-secondary-2 font-bold">
                 Give your post a Title:
               </label>
-              <input type="text" name="post_title" id="post_title" placeholder="Enter a Title" required className="p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/3" />
+              <input type="text" name="post_title" id="post_title" placeholder="Enter a Title" required className="p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.post_title &&
                 state.errors.post_title.map((error: string) => (
@@ -37,10 +37,10 @@ export default function CreatePost({userData} : AddPostProps) {
                 </div>
             </div>
             <div className='m-4'>
-              <label htmlFor="post_content" className="text-md text-secondary-2 font-bold">
+              <label htmlFor="post_content" className=" block text-md text-secondary-2 font-bold">
                 Write what you want to share:
               </label>
-              <textarea name="post_content" id="post_content" placeholder="I really like making stuff!" required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 h-40 md:w-1/3" />
+              <textarea name="post_content" id="post_content" placeholder="I really like making stuff!" required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 h-40 md:w-1/2" />
                 <div id="customer-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.post_content &&
                 state.errors.post_content.map((error: string) => (

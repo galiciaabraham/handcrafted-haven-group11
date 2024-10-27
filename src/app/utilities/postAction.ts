@@ -22,6 +22,7 @@ const PostFormSchema = z.object({
   });
 
   const PostEditFormSchema = z.object({
+    user_id: z.number(),
     post_content: z.string({
         invalid_type_error: 'Seems that you might be missing some words...',
     }).min(1,{message: 'Seems that you might be missing some words...'}),
@@ -111,9 +112,10 @@ const PostFormSchema = z.object({
 
   export async function editPostAction(state: State | undefined, formData : FormData) : Promise<State | undefined> {
     const inputData = EditPost.safeParse({
+    user_id : Number(formData.get('user_id')),
     post_title: formData.get('post_title')?.toString(),
     post_content: formData.get('post_content')?.toString(),
-    user_type: formData.get('user_type')?.toString().trim(),
+    user_type: formData.get('user_type')?.toString(),
     post_likes_count: Number(formData.get('post_likes_count')),
     post_id: Number(formData.get('post_id'))
     });
@@ -123,8 +125,6 @@ const PostFormSchema = z.object({
         errors: inputData.error.flatten().fieldErrors,
         message: 'Missing Fields. Failed to Edit Post.',
       };
-    } else {
-      console.log('the inputData is failing');
     }
 
   if(inputData.data.user_type !== 'Seller') {
@@ -135,7 +135,7 @@ const PostFormSchema = z.object({
   }
 
 
-  const { post_title, post_content, post_likes_count, post_id } = inputData.data;
+  const { post_title, post_content, post_likes_count, post_id, user_id } = inputData.data;
   const post_updated_at = new Date().toISOString().split('T')[0];
 try {
   await sql `
@@ -144,7 +144,7 @@ try {
           post_content = ${post_content},
           post_updated_at = ${post_updated_at},
           post_likes_count = ${post_likes_count}
-      WHERE post_id = ${post_id}`;
+      WHERE post_id = ${post_id} AND user_id = ${user_id}`;
 
   console.log('post correctly updated');
 
@@ -156,4 +156,21 @@ try {
 redirect('/feed');
 
   }
+
+  export async function deletePost(post_id : number, user_id : string) {
+    const userId = Number(user_id);
+
+    try {
+      await sql `DELETE FROM posts WHERE post_id = ${post_id} AND user_id = ${userId}`;
+    
+      console.log('post deleted correctly');
+    
+      } catch (error) {
+          console.log(error)
+          console.log('Error deleting post')
+      }; 
+    
+    redirect('/feed');
+  }
+
   
