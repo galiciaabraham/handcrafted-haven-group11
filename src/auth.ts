@@ -64,9 +64,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
 
-    // async redirect({ url, baseUrl}) {
-    //   return baseUrl;
-    // },
+    async redirect({ url, baseUrl}) {
+      return baseUrl;
+    },
 
   },
 });
