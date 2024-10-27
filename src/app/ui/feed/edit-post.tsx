@@ -25,9 +25,6 @@ export default function EditPost({userData, postContent} : EditPostProps) {
     const initialState: State = { message: null, errors: {} };
     const [state, formAction] = useActionState(editPostAction, initialState);
 
-    console.log('This is the needed data that is being passed down:', postContent.post_id, postContent.post_likes_count, postContent.post_title, userData.user_id, userData.user_type.trim() )
-    console.log(`This are their data types: post_id: ${typeof(postContent.post_id)}, post_likes_count: ${typeof(postContent.post_likes_count)}, post_title: ${typeof(postContent.post_title)}, user_id: ${typeof(userData.user_id)}, user_type: ${typeof(userData.user_type)}`)
-
     return (
         <>
         <h2 className='font-extrabold text-xl text-center m-4'>Edit your post: {postContent.post_title} </h2>

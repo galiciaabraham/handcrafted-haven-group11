@@ -9,7 +9,6 @@ async function getUserData(){
   const session = await auth()
   if(session?.user?.id != undefined) {
     const user = await getUserById(session?.user?.id)
-    console.log(user);
     return user;
     }
   return undefined;
@@ -24,7 +23,6 @@ export default async function Page({searchParams}: PageProps) {
   const userData = await getUserData()
   const post_id = Number(id);
   const postContent = await fetchPostsById(post_id);
-  console.log(postContent);
 
   return (
     <>

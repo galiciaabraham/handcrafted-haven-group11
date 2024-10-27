@@ -81,7 +81,6 @@ const PostFormSchema = z.object({
               message: 'Missing Fields. Failed to Add Post.',
             };
           }
-          console.log('checkpoint 3');
 
         if(inputData.data.user_type !== 'Seller') {
           return {
@@ -106,7 +105,6 @@ const PostFormSchema = z.object({
             console.log(error)
             console.log('Error creating post')
         }; 
-        console.log('checkpoint 7');
 
       redirect('/feed');
   }

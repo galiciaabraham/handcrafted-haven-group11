@@ -2,21 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-//import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 
 
 export default function AddPostButton() {
-    const [isHidden, setHidden] = useState(false);
-    //const { data : session } = useSession()
-    const session = false;
+    const [isHidden, setHidden] = useState(true);
+    const { data : session } = useSession()
     const router = useRouter();
 
         useEffect(() => {
             if (session) {
-                setHidden(true);
-            } else {
                 setHidden(false);
+            } else {
+                setHidden(true);
             }
         }, [session]); 
 
