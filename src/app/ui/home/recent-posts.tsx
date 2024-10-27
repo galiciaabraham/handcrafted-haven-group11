@@ -4,7 +4,6 @@ import { fetchAllPosts, fetchAllProducts } from "@/app/utilities/data";
 
 export default async function HighlightWrapper() {
 const posts = await fetchAllPosts();
-console.log(posts);
 
 const sortedPosts = posts.sort((a, b) => new Date(b.post_create_at).getTime() - new Date(a.post_create_at).getTime());
 const recentPosts = sortedPosts.slice(0,2);
