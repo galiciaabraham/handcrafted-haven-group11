@@ -1,5 +1,5 @@
 interface Product {
-    product_id: number;
+  product_id: number;
   user_id: number;
   product_title: string;
   product_description: string;

@@ -29,9 +29,9 @@ export default function RootLayout({
       </head>
       <body className={`${montserrat.className} antialiased`}>
         <SessionProvider>
-          {/* <header>
+          <header>
             <NavBar />
-          </header> */}
+          </header>
           {children}
           <Footer />
         </SessionProvider>
