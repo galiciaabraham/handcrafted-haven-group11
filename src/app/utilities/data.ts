@@ -173,12 +173,7 @@ export async function insertNewUser ({name, email, password, type}: any) {
   try {
     const response = await sql`INSERT into users (user_name, user_email, user_password, user_type, user_join_date, user_profile_picture, user_bio) VALUES (${name}, ${email}, ${hashedPassword}, ${type}, NOW(), ${userProfilePicture}, ${userBio} )`;
 
-    if(response) {
-      return "success"
-    } else {
-      return "fail"
-    }
-
+    return response;
   } catch (err) {
     console.error('Error when creating user', err);
     throw new Error(`Failed to create user`)
