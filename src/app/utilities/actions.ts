@@ -5,6 +5,7 @@ import { AuthError } from 'next-auth';
 import { insertNewUser } from './data';
 import { compare, hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export async function authenticate(
     prevState: string | undefined,
@@ -28,14 +29,37 @@ export async function authenticate(
   }
 
 
+
+  // async function registerNewUser(formData : any){
+  //   console.log(formData)
+
+  
+  //   registerUSer(undefined, {name, email, password, type})
+  
+  // }
+
   export async function registerUSer(
-    prevState: string | undefined,
+    prevState: any,
     formData: any,
   ) {
     try {
       
-      await insertNewUser(formData);
-      redirect("/")  
+      const registerFormData = Object.fromEntries(formData)
+
+      const {
+        name,
+        email,
+        password,
+        type
+      } = registerFormData
+
+      const response = await insertNewUser({name, email, password, type});
+      if(response) {
+        revalidatePath('/login')
+        redirect("/login")
+        
+      }
+      
       
 
     } catch (error) {
