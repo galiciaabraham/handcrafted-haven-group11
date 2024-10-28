@@ -2,7 +2,7 @@
 
  import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
-import { ProductDetails, SellerDetails, ReviewDetails, User } from "./definitions";
+import { ProductDetails, SellerDetails, ReviewDetails, User, UserProfile } from "./definitions";
 import { hashPassword } from "./actions";
 
 export async function fetchAllProducts () {
@@ -162,11 +162,10 @@ export async function fetchReviewsByProductId(product_id: string){
 export async function insertNewUser (formData : any) {
 
   const registerFormData = Object.fromEntries(formData);
-
-  console.log("pass",registerFormData)
+  
   const hashedPassword = await hashPassword(registerFormData.password)
   
-  const userProfilePicture : string = "images/profile/default.jpg"
+  const userProfilePicture : string = "/images/profiles/default.jpg"
   const userBio : string = "Write about you"
   
 
@@ -184,6 +183,15 @@ export async function insertNewUser (formData : any) {
     throw new Error(`Failed to create user`)
   }
 
-  
+}
 
+  export async function fetchUserInfo (userId:any) {
+    try {
+        const response = await sql<UserProfile>`SELECT * FROM users WHERE user_id=${userId}`;
+        const userData = response.rows[0];
+        return userData;
+    } catch (err) {
+        console.error('Error fetching data', err);
+        throw new Error('Failed to fetch the user data');
+    }
 }
