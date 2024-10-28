@@ -266,7 +266,8 @@ export async function deleteReview(reviewId: string){
 const formReviewEditSchema = z.object({
   reviewId: z.number(),
   reviewRating: z.number().min(1).max(5), 
-  reviewComment: z.string().min(1).max(200), 
+  reviewComment: z.string().min(1).max(200),
+  productId: z.number(), 
 })
 
 type FormReviewEdit = z.infer<typeof formReviewEditSchema>;
@@ -288,17 +289,21 @@ export async function updateReview(formData: FormReviewEdit){
     };
   }
 
-  const {reviewComment, reviewRating, reviewId} = formData;
+  const {reviewComment, reviewRating, reviewId, productId} = formData;
   // Error handling
   try {
     await sql`UPDATE reviews
     SET review_rating=${reviewRating}, review_comment=${reviewComment}
     WHERE review_id=${reviewId};`
 
+    return {
+      success: true,
+      redirectTo:`/shop/products/${productId}`
+    }
     
   } catch (error) {
     console.error('Error creating the review', error);
     throw new Error('Failed to create review');
   }
-  redirect(`/shop/products/`);
+ 
 }

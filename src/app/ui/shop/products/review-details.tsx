@@ -1,26 +1,18 @@
 "use client"
-import { deleteReview, fetchReviewsByProductId } from "@/app/utilities/data";
 import React from "react";
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import Link from "next/link";
-import { auth } from "@/auth";
 import { Review } from "@/app/utilities/definitions";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { DeleteReviewButton } from "./reviews/buttons";
 
-export default async function ReviewDetails({id, reviews}: {id:string, reviews:Review[]}){
 
-    // const reviews = await fetchReviewsByProductId(id);
-    
-    // const session = await auth();
+export default function ReviewDetails({id, reviews}: {id:string, reviews:Review[]}){
 
-    
-    // let currentUser;
-    // if (session?.user?.id != undefined){
-    //     currentUser = session.user.id;
-    // } else currentUser = undefined;
+
     const [localReviews, setLocalReviews] = useState(reviews);
 
     let currentUser;
@@ -30,14 +22,9 @@ export default async function ReviewDetails({id, reviews}: {id:string, reviews:R
         currentUser = session?.user?.id
     } else currentUser = undefined;
 
-    async function handleDelete(reviewId:string){
-        // const result = await deleteReview(reviewId);
-        // if (result.success) { 
-        //     setLocalReviews(prevReviews => prevReviews.filter(review => review.review_id !== reviewId));
-        // } else {
-        //     console.error("Failed to delete review");
-        // }
-    }
+    const handleDeleteReview = (deletedReviewId: string) => {
+        setLocalReviews((prevReviews) => prevReviews.filter(review => review.review_id !== deletedReviewId));
+    };
 
     return(
         <div className="flex flex-col w-full">
@@ -60,9 +47,10 @@ export default async function ReviewDetails({id, reviews}: {id:string, reviews:R
                     className="bg-main-2 p-4 rounded-lg text-black my-2 mx-auto w-full" >
                     <div className="flex flex-col md:flex-row justify-between">
                         {review.user_id.toString() === currentUser && (
+                        
                         <div className="flex flex-row justify-center mb-4 md:justify-between gap-4 order-1 md:order-2">
-                            <Link className="bg-main-1 text-main-2 px-4 w-25 h-10 flex justify-center items-center rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2" href={`/shop/products/edit-review/${review.review_id}`}><img src="/images/edit.png" alt="edit symbol" width={25} height={25} className="m-auto" /></Link>
-                            {/* <button className="bg-main-1 text-main-2 px-4 w-25 h-10 flex justify-center items-center rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2" onClick={() => handleDelete(review.review_id)}><img src="/images/delete.png" alt="delete symbol" width={25} height={25} className="m-auto"/></button> */}
+                                <Link className="bg-main-1 text-main-2 px-4 w-25 h-10 flex justify-center items-center rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2" href={`/shop/products/edit-review/${review.review_id}`}><img src="/images/edit.png" alt="edit symbol" width={25} height={25} className="m-auto" /></Link>
+                                <DeleteReviewButton id={review.review_id} onDelete={handleDeleteReview}></DeleteReviewButton>
                         </div>
                          ) }
                         <div className="order-2 md:order-1 md:mt-4">

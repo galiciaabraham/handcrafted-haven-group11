@@ -133,4 +133,5 @@ export interface Review {
     review_rating: string;
     review_created_date: string;
     user_id: string;
+    product_id: string;
 }

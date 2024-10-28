@@ -4,45 +4,50 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { Review } from "@/app/utilities/definitions";
 import { updateReview } from "@/app/utilities/data";
+import { useRouter } from "next/navigation";
 
 export interface FormReviewEdit {
     reviewId:number;
     reviewRating: number;
     reviewComment: string;
+    productId:number;
   }
 
 export default function FormReviewEdit({review} : {review:Review|undefined}){
     const [reviewId, setReviewId] = useState<number>();
     const [reviewRating, setReviewRating] = useState<number>(review ? parseInt(review.review_rating) : 1);
     const [reviewComment, setReviewComment] = useState<string>("");
+    const [productId, setProductId] = useState<number>();
     const [errors, setErrors] = useState<{ reviewRating?: string; reviewComment?: string }>({});
-
-    if (review){
-        useEffect(() =>{
-            setReviewId(parseInt(review.review_id))
+    const router = useRouter();
+    useEffect(() => {
+        if (review) {
+            setReviewId(parseInt(review.review_id));
             setReviewRating(parseInt(review.review_rating));
-            setReviewComment(review.review_comment); 
-            }
-        );
-    }
+            setReviewComment(review.review_comment);
+            setProductId(parseInt(review.product_id));
+        }
+    }, [review]);
 
    
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (reviewId !== undefined && reviewRating !== undefined) {
+        if (reviewId !== undefined && reviewRating !== undefined && productId !== undefined) {
         const formData = {
             reviewId,
             reviewRating,
             reviewComment,
+            productId,
         }
 
         const result = await updateReview(formData);
         if (result?.errors) {
             setErrors(result.errors);
+          } else if (result.success){
+            router.push(result.redirectTo);
           }
-        } else throw new Error("Error while trying to update.");
-        
+        }         
     }
     
 
@@ -78,29 +83,6 @@ export default function FormReviewEdit({review} : {review:Review|undefined}){
                 {errors.reviewComment && <p className="text-red-500 text-sm">{errors.reviewComment}</p>}
                 </label>
 
-                {/* <label htmlFor="date">
-                <input
-                    type="hidden"
-                    name="date"
-                    value={new Date().toISOString()}
-                />
-                </label>
-
-                <label htmlFor="productId">
-                <input 
-                    type="hidden"
-                    name="productId"
-                    value={productId}
-                />
-                </label>
-
-                <label htmlFor="user_id">
-                <input
-                    type="hidden"
-                    name="user_id"
-                    value={userId}
-                />
-                </label> */}
 
                 <button className="bg-main-1 text-main-2 px-4 py-2 rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2 block mx-auto" type="submit">Submit Review</button>
             </form>

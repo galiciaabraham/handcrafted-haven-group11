@@ -3,7 +3,7 @@ import { fetchReviewByReviewId } from "@/app/utilities/data";
 import { auth } from "@/auth";
 
 interface Params {
-    id: string; // Define the type of your dynamic parameter
+    id: string; 
 }
 
 export default async function Page({params}:{params:Params}) {
