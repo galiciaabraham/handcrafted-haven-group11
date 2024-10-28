@@ -14,7 +14,7 @@ export default function ReviewDetails({id, reviews}: {id:string, reviews:Review[
 
 
     const [localReviews, setLocalReviews] = useState(reviews);
-
+    const router = useRouter();
     let currentUser;
     const {data: session, status} = useSession();
 
@@ -36,7 +36,7 @@ export default function ReviewDetails({id, reviews}: {id:string, reviews:Review[
             {localReviews?.map((review) => {
                 const reviewDate = new Date(review.review_created_date);
                 const formattedDate = reviewDate.toLocaleDateString();
-                const router = useRouter();
+                
                 const stars = parseInt(review.review_rating);
                 
                 
