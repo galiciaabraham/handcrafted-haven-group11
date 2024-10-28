@@ -20,8 +20,8 @@ export default function Profile() {
     return (
       <div>
         <ProfileInfo userId = {userId} />
-        <ProfileReviews userId = {userId} />
-        <ProfileOrders userId = {userId} />
+        {/* <ProfileReviews userId = {userId} />
+        <ProfileOrders userId = {userId} /> */}
       </div>
     );
   } else {

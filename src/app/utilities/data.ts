@@ -2,11 +2,12 @@
 
 import { sql } from "@vercel/postgres";
 import {redirect} from "next/navigation";
-import { ProductDetails, SellerDetails, Review, User } from "./definitions";
+import { ProductDetails, SellerDetails, Review, UserProfile } from "./definitions";
 import { FormReview } from "../ui/shop/products/reviews/create-review-form";
 import {z} from "zod";
 import FormReviewEdit from "../ui/shop/products/reviews/edit-review-form";
 import { hashPassword } from "./actions";
+
 
 export async function fetchAllProducts () {
     try {
