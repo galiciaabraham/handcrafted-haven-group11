@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import { Review } from "@/app/utilities/definitions";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default async function ReviewDetails({id, reviews}: {id:string, reviews:Review[]}){
 
@@ -48,7 +49,7 @@ export default async function ReviewDetails({id, reviews}: {id:string, reviews:R
             {localReviews?.map((review) => {
                 const reviewDate = new Date(review.review_created_date);
                 const formattedDate = reviewDate.toLocaleDateString();
-
+                const router = useRouter();
                 const stars = parseInt(review.review_rating);
                 
                 
@@ -60,8 +61,9 @@ export default async function ReviewDetails({id, reviews}: {id:string, reviews:R
                     <div className="flex flex-col md:flex-row justify-between">
                         {review.user_id.toString() === currentUser && (
                         <div className="flex flex-row justify-center mb-4 md:justify-between gap-4 order-1 md:order-2">
-                            <Link className="bg-main-1 text-main-2 px-4 w-25 h-10 flex justify-center items-center rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2" href={`/shop/products/${id}/create-review`}><img src="/images/edit.png" alt="edit symbol" width={25} height={25} className="m-auto" /></Link>
-                            <button className="bg-main-1 text-main-2 px-4 w-25 h-10 flex justify-center items-center rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2" onClick={()=>handleDelete(review.review_id)}><img src="/images/delete.png" alt="delete symbol" width={25} height={25} className="m-auto"/></button>
+                            <Link className="bg-main-1 text-main-2 px-4 w-25 h-10 flex justify-center items-center rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2" href={`/shop/products/edit-review/?id=${review.review_id}`}><img src="/images/edit.png" alt="edit symbol" width={25} height={25} className="m-auto" /></Link>
+                            {/* <button className="bg-main-1 text-main-2 px-4 w-25 h-10 flex justify-center items-center rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2" onClick={() => router.push(`/shop/products/edit-review/?id=${review.review_id}`)}><img src="/images/edit.png" alt="edit symbol" width={25} height={25} className="m-auto" /></button> */}
+                            <button className="bg-main-1 text-main-2 px-4 w-25 h-10 flex justify-center items-center rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2" onClick={() => handleDelete(review.review_id)}><img src="/images/delete.png" alt="delete symbol" width={25} height={25} className="m-auto"/></button>
                         </div>
                          ) }
                         <div className="order-2 md:order-1 md:mt-4">

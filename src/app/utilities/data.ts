@@ -5,6 +5,7 @@ import {redirect} from "next/navigation";
 import { ProductDetails, SellerDetails, Review, User } from "./definitions";
 import { FormReview } from "../ui/shop/products/reviews/create-review-form";
 import {z} from "zod";
+import FormReviewEdit from "../ui/shop/products/reviews/edit-review-form";
 
 export async function fetchAllProducts () {
     try {
@@ -160,6 +161,30 @@ export async function fetchReviewsByProductId(product_id: string){
   
 }
 
+export async function fetchReviewByReviewId(review_id: string){
+  try {
+    const { rows } = await sql<Review>`SELECT 
+    reviews.review_id,
+    reviews.review_comment,
+    reviews.review_rating,
+    reviews.review_created_date,
+    reviews.user_id,
+    reviews.product_id
+  FROM 
+    public.reviews
+
+  WHERE 
+    reviews.review_id = ${review_id};`
+
+    const reviews = rows;
+    return reviews;
+  } catch (error) {
+    console.error('Error retrieving review information', error);
+    throw new Error('Failed to retrieve review information');
+  }
+  
+}
+
 
 export async function insertNewUser ({user_name, user_email, user_password, user_type} : {
   user_name : string;
@@ -209,8 +234,6 @@ export async function createReview(formData: FormReview){
     };
   }
 
-
-
   const {reviewComment, reviewDate, productId, reviewRating, userId} = formData;
   // Error handling
   try {
@@ -237,4 +260,45 @@ export async function deleteReview(reviewId: string){
     return { success: false, message: 'Failed to delete review' };
 
   }
+}
+
+
+const formReviewEditSchema = z.object({
+  reviewId: z.number(),
+  reviewRating: z.number().min(1).max(5), 
+  reviewComment: z.string().min(1).max(200), 
+})
+
+type FormReviewEdit = z.infer<typeof formReviewEditSchema>;
+
+export async function updateReview(formData: FormReviewEdit){
+
+  // Validation
+  const validateForm = formReviewEditSchema.safeParse(formData);
+
+  if (!validateForm.success) {
+    return {
+      errors: Object.fromEntries(
+        Object.entries(validateForm.error.flatten().fieldErrors).map(([key, value]) => [
+          key,
+          value[0],
+        ])
+      ),
+      message: "Failed to Create Review. Error in field."
+    };
+  }
+
+  const {reviewComment, reviewRating, reviewId} = formData;
+  // Error handling
+  try {
+    await sql`UPDATE reviews
+    SET review_rating=${reviewRating}, review_comment=${reviewComment}
+    WHERE review_id=${reviewId};`
+
+    
+  } catch (error) {
+    console.error('Error creating the review', error);
+    throw new Error('Failed to create review');
+  }
+  redirect(`/shop/products/`);
 }
