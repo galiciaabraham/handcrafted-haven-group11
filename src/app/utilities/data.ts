@@ -49,25 +49,6 @@ export async function fetchPostsById (post_id : number ) {
 }
 }
 
-export async function fetchPostsById (post_id : number ) {
-  try {
-    const { rows } = await sql<Post>`SELECT * FROM posts WHERE post_id = ${post_id} `;
-    const post = rows[0];
-      
-      return {
-        post_title: post.post_title,
-        post_content: post.post_content,
-        post_likes_count : post.post_likes_count,
-        post_id : post.post_id,
-        user_id : post.user_id,
-      }
-
-} catch (err) {
-    console.error('Error fetching data', err);
-    throw new Error(`Failed to fetch the post by ID: ${post_id}`);
-}
-}
-
 export async function checkIfLiked({user_id, post_id} : {
   user_id : number,
   post_id : number,
