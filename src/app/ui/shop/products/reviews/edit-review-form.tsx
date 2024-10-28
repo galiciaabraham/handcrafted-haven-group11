@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
@@ -16,13 +17,14 @@ export default function FormReviewEdit({review} : {review:Review|undefined}){
     const [reviewComment, setReviewComment] = useState<string>("");
     const [errors, setErrors] = useState<{ reviewRating?: string; reviewComment?: string }>({});
 
-    useEffect(() => {
-        if (review) {
-            setReviewId(parseInt(review.review_id));
+    if (review){
+        useEffect(() =>{
+            setReviewId(parseInt(review.review_id))
             setReviewRating(parseInt(review.review_rating));
-            setReviewComment(review.review_comment);
-        }
-    }, [review]);
+            setReviewComment(review.review_comment); 
+            }
+        );
+    }
 
    
 
