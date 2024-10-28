@@ -6,9 +6,9 @@ export default function HomeLayout({
   }) {
     return (
         <>
-            <header>
+            {/* <header>
               <NavBar />
-            </header>
+            </header> */}
             {children}
         </>
     );
