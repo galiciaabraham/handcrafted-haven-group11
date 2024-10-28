@@ -28,13 +28,31 @@ export async function authenticate(
   }
 
 
+
+  // async function registerNewUser(formData : any){
+  //   console.log(formData)
+
+  
+  //   registerUSer(undefined, {name, email, password, type})
+  
+  // }
+
   export async function registerUSer(
-    prevState: string | undefined,
+    prevState: any,
     formData: any,
   ) {
     try {
       
-      await insertNewUser(formData);
+      const {
+        name,
+        email,
+        password,
+        type
+      } = formData
+
+
+
+      await insertNewUser({name, email, password, type});
       redirect("/")  
       
 

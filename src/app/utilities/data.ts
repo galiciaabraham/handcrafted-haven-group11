@@ -159,19 +159,19 @@ export async function fetchReviewsByProductId(product_id: string){
 }
 
 
-export async function insertNewUser (formData : any) {
+export async function insertNewUser ({name, email, password, type}: any) {
 
-  const registerFormData = Object.fromEntries(formData);
+  // const registerFormData = Object.fromEntries(formData);
 
-  console.log("pass",registerFormData)
-  const hashedPassword = await hashPassword(registerFormData.password)
+  //console.log("pass",registerFormData)
+  const hashedPassword = await hashPassword(password)
   
   const userProfilePicture : string = "images/profile/default.jpg"
   const userBio : string = "Write about you"
   
 
   try {
-    const response = await sql`INSERT into users (user_name, user_email, user_password, user_type, user_join_date, user_profile_picture, user_bio) VALUES (${registerFormData.name}, ${registerFormData.email}, ${hashedPassword}, ${registerFormData.type}, NOW(), ${userProfilePicture}, ${userBio} )`;
+    const response = await sql`INSERT into users (user_name, user_email, user_password, user_type, user_join_date, user_profile_picture, user_bio) VALUES (${name}, ${email}, ${hashedPassword}, ${type}, NOW(), ${userProfilePicture}, ${userBio} )`;
 
     if(response) {
       return "success"
