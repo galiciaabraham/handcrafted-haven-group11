@@ -1,7 +1,6 @@
 
 import PostPreview from "@/app/ui/feed/post-list";
 import { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
 
 
 export default function PostPage({posts, session}:
@@ -11,10 +10,8 @@ export default function PostPage({posts, session}:
     }
 ) {
     return (
-        <main className="grid grid-cols-1 md:grid-cols-2">
-        <SessionProvider session={session}>
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-4 m-5 mb-20">
         <PostPreview posts={posts} />
-        </SessionProvider>
         </main>
     )
 }

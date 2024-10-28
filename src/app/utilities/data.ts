@@ -1,8 +1,9 @@
 'use server'; 
 
  import { sql } from "@vercel/postgres";
-import { revalidatePath } from "next/cache";
-import { ProductDetails, SellerDetails, ReviewDetails, User } from "./definitions";
+import { ProductDetails, SellerDetails, ReviewDetails } from "./definitions";
+
+
 
 export async function fetchAllProducts () {
     try {
@@ -25,6 +26,25 @@ export async function fetchAllPosts () {
       console.error('Error fetching data', err);
       throw new Error('Failed to fetch the posts');
   }
+}
+
+export async function fetchPostsById (post_id : number ) {
+  try {
+    const { rows } = await sql<Post>`SELECT * FROM posts WHERE post_id = ${post_id} `;
+    const post = rows[0];
+      
+      return {
+        post_title: post.post_title,
+        post_content: post.post_content,
+        post_likes_count : post.post_likes_count,
+        post_id : post.post_id,
+        user_id : post.user_id,
+      }
+
+} catch (err) {
+    console.error('Error fetching data', err);
+    throw new Error(`Failed to fetch the post by ID: ${post_id}`);
+}
 }
 
 export async function checkIfLiked({user_id, post_id} : {
@@ -158,25 +178,3 @@ export async function fetchReviewsByProductId(product_id: string){
 }
 
 
-export async function insertNewUser ({user_name, user_email, user_password, user_type} : {
-  user_name : string;
-  user_email : string;
-  user_password : string;
-  user_type : "Customer" | "Seller"
-}) {
-
-
-  const newDate  = (new Date()).toString();
-  const joinDate : string = newDate
-  
-  const userProfilePicture : string = "images/profile/default.jpg"
-  const userBio : string = "Write about you"
-
-  try {
-    await sql<User>`INSERT into users (user_name, user_email, user_password, user_type, user_join_date, user_profile_picture, user_bio) VALUES (${user_name}, ${user_email}, ${user_password}, ${user_type}, ${joinDate}, ${userProfilePicture}, ${userBio} )`;
-
-  } catch (err) {
-    console.error('Error when creating user', err);
-    throw new Error(`Failed to create user`)
-  }
-}
