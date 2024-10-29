@@ -158,31 +158,31 @@ try {
           post_likes_count = ${post_likes_count}
       WHERE post_id = ${post_id} AND user_id = ${user_id}`;
 
-  console.log('post correctly updated');
+  console.log('product correctly updated');
 
   } catch (error) {
       console.log(error)
-      console.log('Error editing post')
+      console.log('Error editing product')
   }; 
 
-redirect('/feed');
+redirect('/shop');
 
   }
 
-  export async function deleteProduct(post_id : number, user_id : string) {
+  export async function deleteProduct(product_id : number, user_id : string) {
     const userId = Number(user_id);
 
     try {
-      await sql `DELETE FROM posts WHERE post_id = ${post_id} AND user_id = ${userId}`;
+      await sql `DELETE FROM products WHERE product_id = ${product_id} AND user_id = ${userId}`;
     
-      console.log('post deleted correctly');
+      console.log('product deleted correctly');
     
       } catch (error) {
           console.log(error)
-          console.log('Error deleting post')
+          console.log('Error deleting product')
       }; 
     
-    redirect('/feed');
+    redirect('/shop');
   }
 
   
