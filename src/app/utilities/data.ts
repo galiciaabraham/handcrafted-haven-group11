@@ -20,6 +20,27 @@ export async function fetchAllProducts () {
     }
 }
 
+export async function fetchProductsById (product_id : number ) {
+  try {
+    const { rows } = await sql<Product>`SELECT * FROM products WHERE product_id = ${product_id} `;
+    const product = rows[0];
+      
+      return {
+        user_id : product.user_id,
+        product_title : product.product_title,
+        product_description : product.product_description,
+        product_price: product.product_price,
+        product_stock_quantity : product.product_stock_quantity,
+        category_id : product.category_id,
+        product_id : product.product_id,
+      }
+
+} catch (err) {
+    console.error('Error fetching data', err);
+    throw new Error(`Failed to fetch the post by ID: ${product_id}`);
+}
+}
+
 export async function fetchAllPosts () {
     try {
       const { rows } = await sql<Post>`SELECT * FROM posts`;

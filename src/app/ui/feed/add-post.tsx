@@ -27,7 +27,7 @@ export default function CreatePost({userData} : AddPostProps) {
                 Give your post a Title:
               </label>
               <input type="text" name="post_title" id="post_title" placeholder="Enter a Title" required className="p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
-                <div id="customer-error" aria-live="polite" aria-atomic="true">
+                <div id="post-title-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.post_title &&
                 state.errors.post_title.map((error: string) => (
                   <p className="m-4 text-md font-semibold text-secondary-2" key={error}>
@@ -41,7 +41,7 @@ export default function CreatePost({userData} : AddPostProps) {
                 Write what you want to share:
               </label>
               <textarea name="post_content" id="post_content" placeholder="I really like making stuff!" required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 h-40 md:w-1/2" />
-                <div id="customer-error" aria-live="polite" aria-atomic="true">
+                <div id="post-content-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.post_content &&
                 state.errors.post_content.map((error: string) => (
                   <p className="m-4 text-md font-semibold text-secondary-2" key={error}>
@@ -52,7 +52,7 @@ export default function CreatePost({userData} : AddPostProps) {
             </div>
             <input type="hidden" name='user_id' id="user_id" value={userData.user_id}/>
             <input type="hidden" name='user_type' id="user_type" value={userData.user_type}/>
-            <div id="customer-error" aria-live="polite" aria-atomic="true">
+            <div id="user-type-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.user_type &&
                 state.errors.user_type.map((error: string) => (
                   <p className="m-4 text-md font-semibold text-secondary-2" key={error}>

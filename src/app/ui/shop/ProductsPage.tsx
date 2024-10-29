@@ -4,6 +4,7 @@ import ProductPreview from "@/app/ui/shop/product-list";
 import SearchBar from "@/app/utilities/search-bar";
 import { useState, useEffect, Suspense} from "react";
 import { useSearchParams } from "next/navigation";
+import AddProductButton from "@/app/ui/shop/AddProductButton";
 
 
 export default function ProductsPage({ products}: {
@@ -47,9 +48,13 @@ export default function ProductsPage({ products}: {
         <main>
         <Suspense>
         <SearchBar isOrder={isOrder} onOrderChange={handleOrderChange} />
-        <div className="flex flex-col md:grid md:grid-cols-4 gap-4 m-4 p-4">
+        <div className="flex flex-col md:grid md:grid-cols-4 gap-4 m-4 p-4 mb-20 md:mb-20">
             <ProductPreview products={sortedProducts} />
-        </div>
+        </div >
+        <div className="relative">
+        <AddProductButton />
+        </div >
+        
         </Suspense>
         </main>
     );
