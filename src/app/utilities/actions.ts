@@ -28,16 +28,6 @@ export async function authenticate(
     }
   }
 
-
-
-  // async function registerNewUser(formData : any){
-  //   console.log(formData)
-
-  
-  //   registerUSer(undefined, {name, email, password, type})
-  
-  // }
-
   export async function registerUSer(
     prevState: any,
     formData: any,
@@ -54,14 +44,14 @@ export async function authenticate(
       } = registerFormData
 
       const response = await insertNewUser({name, email, password, type});
-      if(response) {
-        revalidatePath('/login')
-        redirect("/login")
-        
+
+      if(response){
+        return true
+      } else {
+        return false
       }
       
       
-
     } catch (error) {
       console.log("Register error", error)
     }
