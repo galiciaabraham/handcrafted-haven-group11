@@ -7,20 +7,21 @@ import { useSession } from "next-auth/react";
 
 export default function Profile() {
   const { data: session, status } = useSession();
-  console.log(session)
 
   if (status === "loading") {
     return <div>Loading...</div>; // Mostrar algo mientras carga la sesión
   }
 
   if (status === "authenticated" && session?.user) {
+    const userId = session.user.id
+    
+    
+    // <h2>Welcome, {session.user.name}</h2>
     return (
       <div>
-        <h2>Welcome, {session.user.name}</h2>
-        
-        <ProfileInfo />
-        <ProfileReviews />
-        <ProfileOrders />
+        <ProfileInfo userId = {userId} />
+        {/* <ProfileReviews userId = {userId} />
+        <ProfileOrders userId = {userId} /> */}
       </div>
     );
   } else {

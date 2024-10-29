@@ -27,13 +27,14 @@ export default function NavBar (){
       <HandCraftLogo/>
       <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
-          <Link 
+          <LoginButton />
+          {/* <Link 
             href="/login"
             className="font-text text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-sm px-4 py-2 text-center"
             onClick={() => {setTimeout(() => {setOpen(!isOpen)}, 500)}}>
             Login
     
-          </Link>
+          </Link> */}
           <ToggleNav isOpen={isOpen} onToggle={handleHamburguer}/>
       </div>
       <div className={`items-center justify-between ${isOpen ? 'flex' : 'hidden'} w-full md:flex md:w-auto md:order-1"`}>

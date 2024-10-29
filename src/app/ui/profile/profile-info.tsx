@@ -2,36 +2,51 @@
 
 import { montserrat } from '@/app/ui/fonts';
 import Image from "next/image";
+import { fetchUserInfo } from '@/app/utilities/data';
+import { useEffect, useState } from 'react';
+import { UserProfile } from '@/app/utilities/definitions';
 
-export default function ProfileInfo() {
-    // const profile = await fetchProfile(id);
+export default function ProfileInfo(userId:any) {
+    const [userData, setData] = useState<UserProfile>();
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    
+
+    useEffect(()=> {
+        async function fetchUser() {
+            setLoading(true);
+            const response = await fetchUserInfo(userId.userId)
+            setData(response)
+            setLoading(false);
+        }
+        fetchUser()
+        console.log(userData?.user_profile_picture)
+    })
+ 
     return (
         <div className='bg-accent-2'>
             <h2 className={`${montserrat.className} mb-4 text-xl md:text-2xl`}>
                 My Profile
             </h2>
             <Image
-                src="https://placehold.co/100x100/000000/FFFFFF.png"
-
+                src={`/images/profiles/default.jpg`}
                 width={100}
                 height={100}
-                alt={`profile picture`}
+                alt={`${ userData?.user_name} profile picture`}
             />
             <div>
-                <p className='text-accent-1'>Name: </p> {/* profile.name */}
+                <p className='text-accent-1'>Name: {userData?.user_name}</p> 
             </div>
             <div>
-            <p className='text-accent-1'>Profile Name: </p> {/* profile.pname */}
+                <p className='text-accent-1'>Email:  {userData?.user_email}</p> {/* profile.email */}
             </div>
             <div>
-                <p className='text-accent-1'>Website link: </p> {/* profile.link */}
+                <p className='text-accent-1'>Address:  {userData?.user_address}</p> {/* profile.email */}
             </div>
             <div>
-                <p className='text-accent-1'>Phone Number: </p> {/* profile.pnumber */}
+                <p className='text-accent-1'>About Me:  {userData?.user_bio}</p> {/* profile.email */}
             </div>
-            <div>
-                <p className='text-accent-1'>Email: </p> {/* profile.email */}
-            </div>
+
 
         </div>
     )

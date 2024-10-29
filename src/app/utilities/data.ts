@@ -2,10 +2,12 @@
 
 import { sql } from "@vercel/postgres";
 import {redirect} from "next/navigation";
-import { ProductDetails, SellerDetails, Review, User } from "./definitions";
+import { ProductDetails, SellerDetails, Review, UserProfile } from "./definitions";
 import { FormReview } from "../ui/shop/products/reviews/create-review-form";
 import {z} from "zod";
 import FormReviewEdit from "../ui/shop/products/reviews/edit-review-form";
+import { hashPassword } from "./actions";
+
 
 export async function fetchAllProducts () {
     try {
@@ -180,6 +182,42 @@ export async function fetchReviewsByProductId(product_id: string){
   
 }
 
+
+export async function insertNewUser ({name, email, password, type}: any) {
+
+  // const registerFormData = Object.fromEntries(formData);
+
+  //console.log("pass",registerFormData)
+  const hashedPassword = await hashPassword(password)
+  //const registerFormData = Object.fromEntries(formData);
+  
+  //const hashedPassword = await hashPassword(registerFormData.password)
+  
+  const userProfilePicture : string = "/images/profiles/default.jpg"
+  const userBio : string = "Write about you"
+  
+
+  try {
+    const response = await sql`INSERT into users (user_name, user_email, user_password, user_type, user_join_date, user_profile_picture, user_bio) VALUES (${name}, ${email}, ${hashedPassword}, ${type}, NOW(), ${userProfilePicture}, ${userBio} )`;
+
+    return response;
+  } catch (err) {
+    console.error('Error when creating user', err);
+    throw new Error(`Failed to create user`)
+  }
+
+}
+
+  export async function fetchUserInfo (userId:any) {
+    try {
+        const response = await sql<UserProfile>`SELECT * FROM users WHERE user_id=${userId}`;
+        const userData = response.rows[0];
+        return userData;
+    } catch (err) {
+        console.error('Error fetching data', err);
+        throw new Error('Failed to fetch the user data');
+    }
+  }
 export async function fetchReviewByReviewId(review_id: string){
   try {
     const { rows } = await sql<Review>`SELECT 

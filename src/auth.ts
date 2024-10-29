@@ -4,7 +4,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import type { User, UserProfile } from '@/app/utilities/definitions';
-import bcrypt from 'bcrypt';
+import { isPasswordValid } from './app/utilities/actions';
 
 
 async function getUser(email: string): Promise<User | undefined> {
@@ -40,7 +40,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           
           if (!user) return null;
       
-          const passwordsMatch = password === user.password;
+          //const passwordsMatch = password === user.password;
+          const passwordsMatch = await isPasswordValid(password,user.password)
           if (passwordsMatch) {
             return user;
           }
