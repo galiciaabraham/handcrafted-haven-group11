@@ -185,15 +185,9 @@ export async function fetchReviewsByProductId(product_id: string){
 
 export async function insertNewUser ({name, email, password, type}: any) {
 
-  // const registerFormData = Object.fromEntries(formData);
-
-  //console.log("pass",registerFormData)
   const hashedPassword = await hashPassword(password)
-  //const registerFormData = Object.fromEntries(formData);
-  
-  //const hashedPassword = await hashPassword(registerFormData.password)
-  
-  const userProfilePicture : string = "/images/profiles/default.jpg"
+
+  const userProfilePicture : string = "images/profiles/default.jpg"
   const userBio : string = "Write about you"
   
 
@@ -342,4 +336,54 @@ export async function updateReview(formData: FormReviewEdit){
     throw new Error('Failed to create review');
   }
  
+}export async function fetchUserPosts (userId:any) {
+  try {
+    const { rows } = await sql<Post>`SELECT * FROM posts WHERE user_id = ${userId}`;
+    const posts = rows;
+    return posts;
+
+} catch (err) {
+    console.error('Error fetching data', err);
+    throw new Error('Failed to fetch the posts');
+}
+}
+
+
+export async function fetchUserProducts (userId : any) {
+  try {
+      const { rows } = await sql<Product>`SELECT * FROM products WHERE user_id = ${userId}`;
+      const products = rows; //Later this data should be formated.
+        return products;
+  } catch (err) {
+      console.error('Error fetching data', err);
+      throw new Error('Failed to fetch the products');
+  }
+}
+
+
+export async function fetchReviewsByUserId(userId: any){
+  try {
+    const { rows } = await sql<Review>`SELECT 
+    users.user_name,
+    reviews.review_id,
+    reviews.review_comment,
+    reviews.review_rating,
+    reviews.review_created_date,
+    reviews.user_id
+  FROM 
+    public.reviews
+  JOIN 
+    public.users
+  ON 
+    reviews.user_id = users.user_id
+  WHERE 
+    users.user_id = ${userId};`
+
+    const reviews = rows;
+    return reviews;
+  } catch (error) {
+    console.error('Error retrieving reviews information', error);
+    throw new Error('Failed to retrieve reviews information');
+  }
+  
 }
