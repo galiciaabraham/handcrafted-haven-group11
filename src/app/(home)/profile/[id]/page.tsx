@@ -18,11 +18,13 @@ export default function Profile() {
     
     // <h2>Welcome, {session.user.name}</h2>
     return (
-      <div>
-        <ProfileInfo userId = {userId} />
-        {/* <ProfileReviews userId = {userId} />
-        <ProfileOrders userId = {userId} /> */}
+      <main>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 p-8 bg-white gap-8">
+        {/* <ProfileInfo userId = {userId} /> */}
+        <ProfileReviews userId = {userId} />
+        <ProfileOrders userId = {userId} />
       </div>
+      </main>
     );
   } else {
     return <div>No user session available. Please log in.</div>;
