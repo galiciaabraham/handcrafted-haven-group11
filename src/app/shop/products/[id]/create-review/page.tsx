@@ -19,7 +19,7 @@ export default function Page() {
         console.log("User ID: ", session);
         return (
             <div className="w-full">
-                <h2>Welcome, User ID: {session.user.name}</h2>
+                
                 <FormReview productId={productId} userId={session.user.id}></FormReview>
             </div>
         );
