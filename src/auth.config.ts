@@ -7,9 +7,9 @@ export const authConfig = {
   callbacks: {
     // async authorized({ auth, request: { nextUrl } }) {
     //   const isLoggedIn = !!auth?.user;
-    //   console.log("login", isLoggedIn)
+      
     //   const isOnLoginPage = nextUrl.pathname.startsWith('/login');
-    //   console.log("logueado", isOnLoginPage)
+      
 
     //   if (isLoggedIn && isOnLoginPage) {
         

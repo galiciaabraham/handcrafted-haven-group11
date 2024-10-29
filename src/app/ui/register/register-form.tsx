@@ -2,18 +2,26 @@
 
 import { montserrat } from '@/app/ui/fonts';
 import { Button } from '../button';
-import { useActionState } from 'react';
 import { registerUSer } from '@/app/utilities/actions';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+
 
 export default function RegisterForm() {
-  const [errorMessage, formAction, isPending] = useActionState(
-    registerUSer,
-    undefined,
-  );
+
+
+  const handleNewUser = (formData : any) => {
+
+    registerUSer(undefined, formData)
+    revalidatePath("/")
+    redirect("/")
+  }
+
+
 
   return (
-    <form action={formAction} className="space-y-3">
+    <form action={handleNewUser} className="space-y-3">
 
 <Link
                 href="/"
@@ -142,7 +150,7 @@ export default function RegisterForm() {
 {/*  */}
 
         </div>
-        <Button className="mt-4 bg-secondary-1 block" aria-disabled={isPending}>
+        <Button className="mt-4 bg-secondary-1 block" >
         Sign up  
         </Button>
         <div
@@ -150,11 +158,6 @@ export default function RegisterForm() {
           aria-live="polite"
           aria-atomic="true"
         >
-           {/* {errorMessage && (
-            <>
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
-          )} */}
         </div>
       </div>
     </form>

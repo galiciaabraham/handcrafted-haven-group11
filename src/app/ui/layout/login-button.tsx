@@ -1,44 +1,23 @@
-import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { useSession, getSession } from "next-auth/react";
+import Login from "./login";
+import Logout from "./logout";
 
 export default function LoginButton() {
     const { data: session, status } = useSession();
-    
-    if (status === "authenticated" && session?.user) {
-        return (
-            <div>
-                <Link
-                    href={`/profile/${session.user?.id}`}
-                    className="font-text text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-sm px-4 py-2 text-center"
-                    >
-                    Profile
-                </Link>
-                <button
-                    onClick={() => signOut()}
-                    className="font-text text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-sm px-4 py-2 text-center"
-                >
-                    Logout
-                </button>
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-            </div>
-        );
-    } else {
-        return (
-            <>
-                <Link
-                    href="/login"
-                    className="font-text text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-sm px-4 py-2 text-center"
-                >
-                    Login
-                </Link>
-                <Link
-                href="/register"
-                className="font-text text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-sm px-4 py-2 text-center"
-            >
-                Register
-            </Link>
-        </>
-        );
-    }
+    useEffect(() => {
+        const checkSession = async () => {
+            const session = await getSession();
+            setIsLoggedIn(!!session);
+        };
+
+        checkSession();
+        const intervalId = setInterval(checkSession, 1000);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+    return isLoggedIn ? <Logout session={session} /> : <Login />;
 }
