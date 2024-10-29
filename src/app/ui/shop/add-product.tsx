@@ -55,7 +55,7 @@ export default function CreatePost({userData} : AddProductsProps) {
               <label htmlFor="product_price" className=" block text-md text-secondary-2 font-bold">
                 Add the price of your product: $
               </label>
-              <input type="number" name="product_price" id="product_price" placeholder="9.99" required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
+              <input type="number" step="0.01" name="product_price" id="product_price" placeholder="9.99" required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
                 <div id="product-price-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.product_price &&
                 state.errors.product_price.map((error: string) => (

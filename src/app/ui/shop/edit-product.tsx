@@ -76,7 +76,7 @@ const handleDeletePost = async(product_id : number, user_id : string) => {
               <label htmlFor="product_title" className="block text-md text-secondary-2 font-bold">
                 Give your product a Title:
               </label>
-              <input type="text" name="product_title" id="product_title" placeholder="Enter a Title" required className="p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
+              <input type="text" name="product_title" id="product_title" placeholder="Enter a Title" defaultValue={productContent.product_title} required className="p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
                 <div id="product-title-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.product_title &&
                 state.errors.product_title.map((error: string) => (
@@ -90,7 +90,7 @@ const handleDeletePost = async(product_id : number, user_id : string) => {
               <label htmlFor="product_description" className=" block text-md text-secondary-2 font-bold">
                 Write a product description:
               </label>
-              <textarea name="product_description" id="product_description" placeholder="I really like making stuff!" required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 h-40 md:w-1/2" />
+              <textarea name="product_description" id="product_description" placeholder="I really like making stuff!" defaultValue={productContent.product_description} required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 h-40 md:w-1/2" />
                 <div id="product-desc-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.product_description &&
                 state.errors.product_description.map((error: string) => (
@@ -105,7 +105,7 @@ const handleDeletePost = async(product_id : number, user_id : string) => {
               <label htmlFor="product_price" className=" block text-md text-secondary-2 font-bold">
                 Add the price of your product: $
               </label>
-              <input type="number" name="product_price" id="product_price" placeholder="9.99" required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
+              <input type="number" name="product_price" step="0.01" id="product_price" placeholder="9.99" defaultValue={productContent.product_price} required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
                 <div id="product-price-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.product_price &&
                 state.errors.product_price.map((error: string) => (
@@ -120,7 +120,7 @@ const handleDeletePost = async(product_id : number, user_id : string) => {
               <label htmlFor="product_stock_quantity" className=" block text-md text-secondary-2 font-bold">
                 Add the current stock you have:
               </label>
-              <input type='number' name="product_stock_quantity" id="product_stock_quantity" placeholder="10" required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
+              <input type='number' name="product_stock_quantity" id="product_stock_quantity" placeholder="10" defaultValue={productContent.product_stock_quantity} required className=" p-2 m-4 bg-main-2 text-black rounded-md shadow-md w-3/4 md:w-1/2" />
                 <div id="stock-error" aria-live="polite" aria-atomic="true">
               {state?.errors?.product_stock_quantity &&
                 state.errors.product_stock_quantity.map((error: string) => (
@@ -140,14 +140,14 @@ const handleDeletePost = async(product_id : number, user_id : string) => {
                 ))}
                 </div>
             <div>
-                <p className='text-secondary-2'>For now the picture will be a placeholder, later enhancements will allow you add your own pictures. Please stay posted to know the release date of these future updates! </p>
+                <p className='text-secondary-2'>For now the picture will be a placeholder, later enhancements will allow you edit your product pictures. Please stay posted to know the release date of these future updates! </p>
             </div>
             <input type="hidden" name='user_id' id="user_id" value={userData.user_id}/>
             <input type="hidden" name='user_type' id="user_type" value={userData.user_type}/>
         
 
             <div className='flex justify-center'>
-            <input type="submit" value="Create" className=" text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-md text-center m-4 p-6" />
+            <input type="submit" value="Update" className=" text-main-2 bg-secondary-2 shadow-lg hover:bg-main-2 hover:text-secondary-2 hover:shadow-lg font-medium rounded-md text-md text-center m-4 p-6" />
             </div>
           </form>
           <div className='flex justify-end' >

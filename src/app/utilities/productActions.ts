@@ -11,7 +11,7 @@ const ProductFormSchema = z.object({
     user_id: z.string().min(1,{message:"ID required try signing in again"}),
     product_title: z.string({
         invalid_type_error: 'Seems that you might be missing a title...',
-      }).min(1,{message: 'Seems that you might be missing a title.....'}),
+      }).min(1,{message: 'Seems that you might be missing a title...'}).max(20,{message: 'Try with a shorter title...'} ),
     product_description: z.string({
         invalid_type_error: 'Seems that you might be missing some words...',
     }).min(1,{message: 'Seems that you might be missing some words...'}),
@@ -27,23 +27,29 @@ const ProductFormSchema = z.object({
      )
   });
 
-  const PostEditFormSchema = z.object({
+  const ProductEditFormSchema = z.object({
     user_id: z.number(),
-    post_content: z.string({
+    product_title: z.string({
+        invalid_type_error: 'Seems that you might be missing a title...',
+      }).min(1,{message: 'Seems that you might be missing a title.....'}).max(20,{message: 'Try with a shorter title...'}),
+    product_description: z.string({
         invalid_type_error: 'Seems that you might be missing some words...',
     }).min(1,{message: 'Seems that you might be missing some words...'}),
-    post_title: z.string({
-      invalid_type_error: 'Seems that you might be missing a title...',
-    }).min(1,{message: 'Seems that you might be missing a title.....'}),
+    product_price: z.number({
+        invalid_type_error: 'Seems that you might be missing a price...',
+    }).min(1,{message: 'Seems that you might be missing a price...'}),
+    product_stock_quantity: z.number({
+        invalid_type_error: 'Seems that you might be missing a stock count...',
+    }).min(1,{message: 'Seems that you might be missing a stock count...'}),
     user_type: z.enum(['Seller', 'Customer'], {
       invalid_type_error: 'No type provided',
-    }),
-    post_likes_count: z.number(),
-    post_id : z.number(),
+    }
+     ),
+     product_id : z.number(),
   });
   
   const CreateProduct = ProductFormSchema;
-  const EditPost = PostEditFormSchema;
+  const EditProduct = ProductEditFormSchema;
 
   export type State = {
     errors?: {
@@ -77,7 +83,6 @@ const ProductFormSchema = z.object({
   }
   
   export async function addProductAction(state: State | undefined, formData : FormData) : Promise<State | undefined> {
-        console.log('check 1');
         const inputData = CreateProduct.safeParse({
             user_id: formData.get('user_id'),
             product_title: formData.get('product_title'),
@@ -93,20 +98,17 @@ const ProductFormSchema = z.object({
               message: 'Missing Fields. Failed to Add Product.',
             };
           }
-          console.log('check 3');
         if(inputData.data.user_type !== 'Seller') {
           return {
             errors: {user_type: ['Your account is not of the valid type']},
             message: ' Failed to add product',
           }
         }
-        console.log('check 4');
         const { user_id, product_title, product_description, product_price, product_stock_quantity } = inputData.data;
         const category_id = "1";
         const product_image_url = 'images/products/placeholder.png';
         const product_created_date = new Date().toISOString();
         const product_updated_date = null;
-        console.log('check 5');
       try {
 
         await sql `
@@ -118,20 +120,21 @@ const ProductFormSchema = z.object({
             console.log(error)
             console.log('Error creating product')
         }; 
-        console.log('check 6');
       redirect('/shop');
   }
 
   export async function editProductAction(state: State | undefined, formData : FormData) : Promise<State | undefined> {
-    const inputData = EditPost.safeParse({
+    const inputData = EditProduct.safeParse({
     user_id : Number(formData.get('user_id')),
-    post_title: formData.get('post_title')?.toString(),
-    post_content: formData.get('post_content')?.toString(),
+    product_title: formData.get('product_title')?.toString(),
+    product_description: formData.get('product_description')?.toString(),
     user_type: formData.get('user_type')?.toString(),
-    post_likes_count: Number(formData.get('post_likes_count')),
-    post_id: Number(formData.get('post_id'))
-    });
+    product_price: Number(formData.get('product_price')),
+    product_stock_quantity : Number(formData.get('product_stock_quantity')),
+    product_id: Number(formData.get('product_id'))
     
+    });
+
     if (!inputData.success) {
       return {
         errors: inputData.error.flatten().fieldErrors,
@@ -147,18 +150,25 @@ const ProductFormSchema = z.object({
   }
 
 
-  const { post_title, post_content, post_likes_count, post_id, user_id } = inputData.data;
-  const post_updated_at = new Date().toISOString().split('T')[0];
-try {
-  await sql `
-  UPDATE posts 
-  SET post_title = ${post_title},
-          post_content = ${post_content},
-          post_updated_at = ${post_updated_at},
-          post_likes_count = ${post_likes_count}
-      WHERE post_id = ${post_id} AND user_id = ${user_id}`;
+  const { user_id, product_title, product_description, product_price, product_stock_quantity, product_id } = inputData.data;
+    const category_id = "1";
+    const product_image_url = 'images/products/placeholder.png';
+    const product_updated_date = new Date().toISOString().split('T')[0];
 
-  console.log('product correctly updated');
+try {
+console.log('reaching query');
+  await sql `
+   UPDATE products 
+   SET product_title = ${product_title},
+        product_description = ${product_description},
+        product_price = ${product_price},
+        product_stock_quantity = ${product_stock_quantity},
+        category_id = ${category_id},
+        product_image_url = ${product_image_url},
+        product_updated_date = ${product_updated_date}
+    WHERE product_id = ${product_id} AND user_id = ${user_id}`;
+    console.log('query successful');
+    console.log('product correctly updated');
 
   } catch (error) {
       console.log(error)
