@@ -16,10 +16,10 @@ const ProductFormSchema = z.object({
         invalid_type_error: 'Seems that you might be missing some words...',
     }).min(1,{message: 'Seems that you might be missing some words...'}),
     product_price: z.number({
-        invalid_type_error: 'Seems that you might a price...',
+        invalid_type_error: 'Seems that you might be missing a price...',
     }).min(1,{message: 'Seems that you might be missing a price...'}),
     product_stock_quantity: z.number({
-        invalid_type_error: 'Seems that you might a stock count...',
+        invalid_type_error: 'Seems that you might be missing a stock count...',
     }).min(1,{message: 'Seems that you might be missing a stock count...'}),
     user_type: z.enum(['Seller', 'Customer'], {
       invalid_type_error: 'No type provided',
@@ -77,47 +77,48 @@ const ProductFormSchema = z.object({
   }
   
   export async function addProductAction(state: State | undefined, formData : FormData) : Promise<State | undefined> {
+        console.log('check 1');
         const inputData = CreateProduct.safeParse({
             user_id: formData.get('user_id'),
-            post_title: formData.get('product_title'),
-            post_content: formData.get('product_description'),
+            product_title: formData.get('product_title'),
+            product_description: formData.get('product_description'),
             user_type : formData.get('user_type'),
-            product_price : formData.get('product_price'),
-            product_stock_quantity : formData.get('product_stock_quantity'),
+            product_price : Number(formData.get('product_price')),
+            product_stock_quantity : Number(formData.get('product_stock_quantity')),
           });
-
+          
           if (!inputData.success) {
             return {
               errors: inputData.error.flatten().fieldErrors,
               message: 'Missing Fields. Failed to Add Product.',
             };
           }
-
+          console.log('check 3');
         if(inputData.data.user_type !== 'Seller') {
           return {
             errors: {user_type: ['Your account is not of the valid type']},
             message: ' Failed to add product',
           }
         }
-
+        console.log('check 4');
         const { user_id, product_title, product_description, product_price, product_stock_quantity } = inputData.data;
-        const product_category = 1;
-        const product_image_url = '/images/products/placeholder';
-        const product_created_at = new Date().toISOString().split('T')[0];
-        const product_updated_date = new Date().toISOString().split('T')[0];
-
+        const category_id = "1";
+        const product_image_url = 'images/products/placeholder.png';
+        const product_created_date = new Date().toISOString();
+        const product_updated_date = null;
+        console.log('check 5');
       try {
 
         await sql `
-        INSERT INTO products (user_id, product_title, product_description, product_price, product_stock_quantity, product_category, product_image_url,  product_created_at, product_updated_date)
-        VALUES (${user_id}, ${product_title}, ${product_description}, ${product_price}, ${product_stock_quantity}, ${product_category}, ${product_image_url}, ${product_created_at}, ${product_updated_date} )`;
+        INSERT INTO products (user_id, product_title, product_description, product_price, product_stock_quantity, category_id, product_image_url,  product_created_date, product_updated_date)
+        VALUES (${user_id}, ${product_title}, ${product_description}, ${product_price}, ${product_stock_quantity}, ${category_id}, ${product_image_url}, ${product_created_date}, ${product_updated_date} )`;
         console.log('product correctly added');
     
         } catch (error) {
             console.log(error)
             console.log('Error creating product')
         }; 
-
+        console.log('check 6');
       redirect('/shop');
   }
 
