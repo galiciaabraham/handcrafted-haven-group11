@@ -28,24 +28,31 @@ const ProductFormSchema = z.object({
   });
 
   const ProductEditFormSchema = z.object({
+
     user_id: z.number(),
+
+    product_id : z.number(),
+
     product_title: z.string({
         invalid_type_error: 'Seems that you might be missing a title...',
       }).min(1,{message: 'Seems that you might be missing a title.....'}).max(20,{message: 'Try with a shorter title...'}),
+
     product_description: z.string({
         invalid_type_error: 'Seems that you might be missing some words...',
     }).min(1,{message: 'Seems that you might be missing some words...'}),
+
     product_price: z.number({
         invalid_type_error: 'Seems that you might be missing a price...',
     }).min(1,{message: 'Seems that you might be missing a price...'}),
+
     product_stock_quantity: z.number({
         invalid_type_error: 'Seems that you might be missing a stock count...',
     }).min(1,{message: 'Seems that you might be missing a stock count...'}),
+
     user_type: z.enum(['Seller', 'Customer'], {
       invalid_type_error: 'No type provided',
-    }
-     ),
-     product_id : z.number(),
+    }),
+     
   });
   
   const CreateProduct = ProductFormSchema;
@@ -54,12 +61,13 @@ const ProductFormSchema = z.object({
   export type State = {
     errors?: {
         user_id? : string[];
+        product_id? : string[],
         product_title? : string[],
         product_description? : string[],
-        user_type? : string[],
-        product_stock_quantity? : string[],
-        product_id? : string[],
         product_price? : string[],
+        product_stock_quantity? : string[],
+        user_type? : string[],
+
 
     };
     message? : string | null;
@@ -85,8 +93,8 @@ const ProductFormSchema = z.object({
   export async function addProductAction(state: State | undefined, formData : FormData) : Promise<State | undefined> {
         const inputData = CreateProduct.safeParse({
             user_id: formData.get('user_id'),
-            product_title: formData.get('product_title'),
-            product_description: formData.get('product_description'),
+            product_title: formData.get('product_title')?.toString().trim(),
+            product_description: formData.get('product_description')?.toString().trim(),
             user_type : formData.get('user_type'),
             product_price : Number(formData.get('product_price')),
             product_stock_quantity : Number(formData.get('product_stock_quantity')),
@@ -105,7 +113,7 @@ const ProductFormSchema = z.object({
           }
         }
         const { user_id, product_title, product_description, product_price, product_stock_quantity } = inputData.data;
-        const category_id = "1";
+        const category_id = 1;
         const product_image_url = 'images/products/placeholder.png';
         const product_created_date = new Date().toISOString();
         const product_updated_date = null;
@@ -125,16 +133,18 @@ const ProductFormSchema = z.object({
 
   export async function editProductAction(state: State | undefined, formData : FormData) : Promise<State | undefined> {
     const inputData = EditProduct.safeParse({
+
     user_id : Number(formData.get('user_id')),
-    product_title: formData.get('product_title')?.toString(),
-    product_description: formData.get('product_description')?.toString(),
+    product_id: Number(formData.get('product_id')),
+    product_title: formData.get('product_title')?.toString().trim(),
+    product_description: formData.get('product_description')?.toString().trim(),
     user_type: formData.get('user_type')?.toString(),
     product_price: Number(formData.get('product_price')),
     product_stock_quantity : Number(formData.get('product_stock_quantity')),
-    product_id: Number(formData.get('product_id'))
     
     });
-
+    console.log(inputData.error);
+    console.log(inputData.data);
     if (!inputData.success) {
       return {
         errors: inputData.error.flatten().fieldErrors,
@@ -145,14 +155,12 @@ const ProductFormSchema = z.object({
   if(inputData.data.user_type !== 'Seller') {
     return {
       errors: {user_type: ['Your account is not of the valid type']},
-      message: ' Failed to edit post',
+      message: ' Failed to edit product',
     }
   }
 
 
-  const { user_id, product_title, product_description, product_price, product_stock_quantity, product_id } = inputData.data;
-    const category_id = "1";
-    const product_image_url = 'images/products/placeholder.png';
+  const { user_id, product_id, product_title, product_description, product_price, product_stock_quantity } = inputData.data;
     const product_updated_date = new Date().toISOString().split('T')[0];
 
 try {
@@ -163,8 +171,6 @@ console.log('reaching query');
         product_description = ${product_description},
         product_price = ${product_price},
         product_stock_quantity = ${product_stock_quantity},
-        category_id = ${category_id},
-        product_image_url = ${product_image_url},
         product_updated_date = ${product_updated_date}
     WHERE product_id = ${product_id} AND user_id = ${user_id}`;
     console.log('query successful');

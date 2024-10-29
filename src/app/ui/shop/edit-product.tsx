@@ -144,6 +144,7 @@ const handleDeletePost = async(product_id : number, user_id : string) => {
             </div>
             <input type="hidden" name='user_id' id="user_id" value={userData.user_id}/>
             <input type="hidden" name='user_type' id="user_type" value={userData.user_type}/>
+            <input type="hidden" name='product_id' id="product_id" value={productContent.product_id}/>
         
 
             <div className='flex justify-center'>
