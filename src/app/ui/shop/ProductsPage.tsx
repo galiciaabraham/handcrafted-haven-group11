@@ -48,7 +48,7 @@ export default function ProductsPage({ products}: {
         <main>
         <Suspense>
         <SearchBar isOrder={isOrder} onOrderChange={handleOrderChange} />
-        <div className="flex flex-col md:grid md:grid-cols-4 gap-4 m-4 p-4 mb-20 md:mb-10">
+        <div className="flex flex-col md:grid md:grid-cols-4 gap-4 m-4 p-4 mb-20 md:mb-20">
             <ProductPreview products={sortedProducts} />
         </div >
         <div className="relative">
