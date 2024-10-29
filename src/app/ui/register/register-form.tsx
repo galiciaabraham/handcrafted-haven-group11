@@ -14,7 +14,7 @@ export default function RegisterForm() {
   const handleNewUser = (formData : any) => {
 
     registerUSer(undefined, formData)
-    revalidatePath
+    revalidatePath("/")
     redirect("/")
   }
 
