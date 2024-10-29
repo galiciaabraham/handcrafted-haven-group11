@@ -4,6 +4,11 @@ import FetchUserData from "@/app/ui/profile/FetchDataUser";
 import FetchUserPosts from "@/app/ui/profile/FetchUserPosts";
 import FetchUserProducts from "@/app/ui/profile/FetchUserProducts";
 import FetchUserReviews from "@/app/ui/profile/FetchUserReviews";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `Profile`,
+}
 
 export default function Profile() {
 

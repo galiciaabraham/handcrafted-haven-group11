@@ -1,7 +1,11 @@
 import FormReviewEdit from "@/app/ui/shop/products/reviews/edit-review-form";
 import { fetchReviewByReviewId } from "@/app/utilities/data";
 import { auth } from "@/auth";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: `Edit Review`,
+  }
 interface Params {
     id: string; 
 }

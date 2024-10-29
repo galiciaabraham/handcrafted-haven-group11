@@ -4,6 +4,11 @@ import SellerDetails from "@/app/ui/shop/products/user-details";
 import ReviewDetails from "@/app/ui/shop/products/review-details";
 import { Suspense } from "react";
 import { fetchReviewsByProductId } from "@/app/utilities/data";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: `Product Information`,
+  }
 
 export default async function Page({params}: {params:{id:string}} ) {
 
