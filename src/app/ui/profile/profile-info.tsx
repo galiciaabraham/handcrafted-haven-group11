@@ -25,6 +25,9 @@ export default async function ProfileInfo(userId:any) {
                 <p className='text-accent-1'>Address:  {response.user_address}</p>
             </div>
             <div>
+                <p className='text-accent-1'>Account Type:  {response.user_type}</p>
+            </div>
+            <div>
                 <p className='text-accent-1'>About Me:  {response.user_bio}</p>
             </div>
 
