@@ -4,6 +4,7 @@ import { sql } from "@vercel/postgres";
 import { z } from 'zod';
 import { redirect } from "next/navigation";
 import type { UserProfile } from '@/app/utilities/definitions';
+import { revalidatePath } from "next/cache";
 
 
 
@@ -197,7 +198,7 @@ redirect('/shop');
           console.log(error)
           console.log('Error deleting product')
       }; 
-    
+    revalidatePath('/shop');
     redirect('/shop');
   }
 

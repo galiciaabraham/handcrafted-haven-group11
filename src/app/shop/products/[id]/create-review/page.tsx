@@ -24,6 +24,6 @@ export default function Page() {
             </div>
         );
     } else {
-        return <div>No user session available. Please log in.</div>;
+        return <div className="m-4 p-4 text-center font-bold">No user session available. Please log in.</div>;
     }
 }

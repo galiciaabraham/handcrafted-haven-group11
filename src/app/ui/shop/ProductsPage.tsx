@@ -12,6 +12,7 @@ interface UserData {
     user_name: string;
   }
 
+
 export default function ProductsPage({ products, userData}: {
     products : Product[],
     userData : UserData, 
@@ -22,10 +23,12 @@ export default function ProductsPage({ products, userData}: {
     const searchParams = useSearchParams();
     const query = searchParams.get('query') || "";
 
+    
+
     const handleOrderChange = () => {
         setOrder(lastOrder => {
         if (lastOrder === "ABC") return "Price";
-        if (lastOrder === "Price") return "Rates";
+        if (lastOrder === "Price") return "ABC";
         return "ABC";
         
         });

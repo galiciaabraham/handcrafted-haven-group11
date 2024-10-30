@@ -5,12 +5,28 @@ import FetchUserPosts from "@/app/ui/profile/FetchUserPosts";
 import FetchUserProducts from "@/app/ui/profile/FetchUserProducts";
 import FetchUserReviews from "@/app/ui/profile/FetchUserReviews";
 import { Metadata } from "next";
+import { getUserById } from "@/app/utilities/postAction";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: `Profile`,
 }
 
-export default function Profile() {
+async function getUserData(){
+  const session = await auth()
+  if(session?.user?.id != undefined) {
+    const user = await getUserById(session?.user?.id)
+    return user;
+    }
+  return {
+      user_id: "0",
+      user_type: "Customer",
+      user_name: "Customer",
+  };
+}
+
+export default async function Profile() {
+  const user = await getUserData()
 
     return (
       <main>
@@ -41,14 +57,19 @@ export default function Profile() {
 
             {/* User Products */}
 
-            <div>
+            <div >
+              { (user.user_type === 'Seller') && 
+                 
+                  <>
               <h2 className={`${montserrat.className} mb-4 text-xl md:text-2xl`}>
                 My Products
               </h2>
               <div className="flex flex-col md:grid md:grid-cols-4 gap-4 m-4 p-4">
                 <FetchUserProducts />
               </div>
-
+              </>
+              }
+              
               {/* User Reviews */}
 
 
