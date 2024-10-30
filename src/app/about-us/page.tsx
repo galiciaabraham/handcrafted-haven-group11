@@ -14,7 +14,8 @@ export default function Page() {
 Our vision is to become the premier online destination for handcrafted art, where creativity knows no bounds and connections are forged through a shared love for artistic expression. We envision a dynamic marketplace where artists and art lovers can seamlessly interact, discovering new talent and appreciating the intricate details of handmade creations. Handcrafted Haven aspires to break down barriers, making art accessible to everyone and bridging the gap between creators and collectors. Through our platform, we strive to inspire a global community that values the craftsmanship, authenticity, and personal touch that handmade art brings to the world.
 </p>
 <p className="text-main-2 m-4 p-4 mt-0 pt-0">
-Together, we will cultivate a space that celebrates the diversity and richness of handmade art, where every brushstroke, stitch, and sculpted detail tells a unique story. Our commitment is to nurture this ecosystem with integrity, creativity, and a deep appreciation for the artistry that brings us all together.</p>
+Together, we will cultivate a space that celebrates the diversity and richness of handmade art, where every brushstroke, stitch, and sculpted detail tells a unique story. Our commitment is to nurture this ecosystem with integrity, creativity, and a deep appreciation for the artistry that brings us all together.
+</p>
 </div>
     </>
 }
