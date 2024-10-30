@@ -6,9 +6,15 @@ import { useState, useEffect, Suspense} from "react";
 import { useSearchParams } from "next/navigation";
 import AddProductButton from "@/app/ui/shop/AddProductButton";
 
+interface UserData {
+    user_id: string;
+    user_type: string;
+    user_name: string;
+  }
 
-export default function ProductsPage({ products}: {
+export default function ProductsPage({ products, userData}: {
     products : Product[],
+    userData : UserData, 
 }) {
 
     const [isOrder, setOrder] = useState("ABC");
@@ -52,7 +58,7 @@ export default function ProductsPage({ products}: {
             <ProductPreview products={sortedProducts} />
         </div >
         <div className="relative">
-        <AddProductButton />
+        <AddProductButton userType={userData.user_type} />
         </div >
         
         </Suspense>
