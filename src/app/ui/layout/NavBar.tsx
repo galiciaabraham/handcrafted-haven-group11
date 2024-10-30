@@ -25,7 +25,7 @@ export default function NavBar (){
     <nav className="bg-main-1 shadow-lg">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <HandCraftLogo/>
-      <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+      <div className="flex gap-3 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
           <LoginButton />
           {/* <Link 
