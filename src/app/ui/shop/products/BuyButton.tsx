@@ -9,7 +9,7 @@ export default function BuyButton({product_id}: {product_id : number}) {
         <>
         <button onClick={()=> {
             route.push(`/shop/products/${stringProductId}`);
-            }} className="bg-main-1 text-main-2 p-2 rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2">Buy
+            }} className="bg-main-1 text-main-2 p-2 rounded-md shadow-md md:hover:bg-main-2 md:hover:text-secondary-2">Details
             </button>
         </>
     )

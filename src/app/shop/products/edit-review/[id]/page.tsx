@@ -21,7 +21,6 @@ export default async function Page({params}:{params:Params}) {
         if (session?.user?.id === review?.user_id.toString()) {
             return (
                 <div className="w-full">
-                    <h2>Welcome, User ID: {session.user.name}</h2>
                     <FormReviewEdit review={review} />
                 </div>
             );
